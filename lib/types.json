@@ -1,0 +1,653 @@
+{
+    "account": {
+        "AccountModel": {
+            "name": "String",
+            "email": "String",
+            "acls": "List<String>",
+            "balance": "int",
+            "pending_charges": "int",
+            "last_payment_date": "String",
+            "last_payment_amount": "int"
+        }
+    },
+
+    "app": {
+        "AppsModel": {
+            "applications": "List<AppModel>",
+            "meta": "MetaModel"
+        },
+        "AppModel": {
+            "id": "int",
+            "name": "String",
+            "short_name": "String",
+            "deploy_name": "String"
+        }
+    },
+
+    "backup": {
+        "BackupsModel": {
+            "backups": "List<BackupModel>",
+            "meta": "MetaModel"
+        },
+        "BackupModel": {
+            "id": "String",
+            "date_created": "String",
+            "description": "String",
+            "size": "int",
+            "status": "String"
+        }
+    },
+
+    "baremetal": {
+        "BareMetalsModel": {
+            "bare_metals": "List<BareMetalModel>",
+            "meta": "MetaModel"
+        },
+        "BareMetalModel": {
+            "id": "String",
+            "os": "String",
+            "ram": "String",
+            "disk": "String",
+            "main_ip": "String",
+            "cpu_count": "int",
+            "region": "String",
+            "default_password": "String",
+            "date_created": "String",
+            "status": "String",
+            "netmask_v4": "String",
+            "gateway_v4": "String",
+            "plan": "String",
+            "v6_network": "String",
+            "v6_main_ip": "String",
+            "v6_network_size": "int",
+            "label": "String",
+            "tag": "String",
+            "os_id": "int",
+            "app_id": "int"
+        },
+        "CreateBareMetalInstanceModel": {
+            "region": "String",
+            "plan": "String",
+            "script_id": "String",
+            "enable_ipv6": "bool",
+            "sshkey_id": "String",
+            "user_data": "String",
+            "label": "String",
+            "activation_email": "bool",
+            "hostname": "String",
+            "tag": "String",
+            "reserved_ipv4": "String",
+            "os_id": "int",
+            "snapshot_id": "String",
+            "app_id": "int",
+    
+            "required": ["region", "plan"]
+        },
+        "UpdateBareMetalModel": {
+            "user_data": "String",
+            "label": "String",
+            "tag": "String",
+            "os_id": "int",
+            "app_id": "int",
+            "enable_ipv6": "bool"
+        },
+    
+        "IPv4BareMetalModel": {
+            "ip": "String",
+            "netmask": "String",
+            "gateway": "String",
+            "type": "String",
+            "reverse": "String"
+        },
+        "IPv6BareMetalModel": {
+            "ip": "String",
+            "netmask": "String",
+            "network_size": "int",
+            "type": "String"
+        }
+    },
+
+    "blockStorage": {
+        "BlockStoragesModel": {
+            "blocks": "List<BlockStorageModel>",
+            "meta": "MetaModel"
+        },
+        "BlockStorageModel": {
+            "id": "String",
+            "date_created": "String",
+            "cost": "int",
+            "status": "String",
+            "size_gb": "int",
+            "region": "String",
+            "attached_to_instance": "int",
+            "label": "String"
+        },
+        "CreateBlockStorageModel": {
+            "region": "String",
+            "size_gb": "int",
+            "label": "String",
+    
+            "required": ["region", "size_gb"]
+        },
+        "UpdateBlockStorageModel": {
+            "label": "String",
+            "size_gb": "int"
+        }
+    },
+
+    "dns": {
+        "DomainsModel": {
+            "domains": "List<DomainModel>",
+            "meta": "MetaModel"
+        },
+        "DomainModel": {
+            "domain": "String",
+            "date_created": "String"
+        },
+        "CreateDomainModel": {
+            "domain": "String",
+            "ip": "String",
+            "dns_sec": "String",
+    
+            "required": ["domain"]
+        },
+        "DomainSOAModel": {
+            "nsprimary": "String",
+            "email": "String"
+        },
+        "UpdateDomainSOAModel": {
+            "nsprimary": "String",
+            "email": "String"
+        },
+        "DomainSecsModel": {
+            "dns_sec": "List<String>"
+        },
+        "CreateDomainRecordModel": {
+            "name": "String",
+            "type": "String",
+            "data": "String",
+            "ttl": "int",
+            "prioirty": "int",
+
+            "required": ["name", "type", "data"]
+        },
+        "DomainRecordModel": {
+            "id": "String",
+            "type": "String",
+            "name": "String",
+            "data": "String",
+            "priority": "int",
+            "ttl": "int"
+        },
+        "DomainRecordsModel": {
+            "records": "List<DomainRecordModel>",
+            "meta": "MetaModel"
+        },
+        "UpdateDomainRecordModel": {
+            "name": "String",
+            "data": "String",
+            "ttl": "int",
+            "priority": "int"
+        }
+    },
+
+    "firewall": {
+        "FirewallGroupsModel": {
+            "firewall_groups": "List<FirewallGroupModel>",
+            "meta": "MetaModel"
+        },
+        "FirewallGroupModel": {
+            "id": "String",
+            "description": "String",
+            "date_created": "String",
+            "date_modified": "String",
+            "instance_count": "int",
+            "rule_count": "int",
+            "max_rule_count": "int"
+        },
+        "FirewallRulesModel": {
+            "firewall_rules": "List<FirewallRuleModel>",
+            "meta": "MetaModel"
+        },
+        "FirewallRuleModel": {
+            "id": "String",
+            "ip_type": "String",
+            "action": "String",
+            "protocol": "String",
+            "port": "String",
+            "subnet": "String",
+            "subnet_size": "int",
+            "source": "String",
+            "notes": "String"
+        },
+        "CreateFirewallRuleModel": {
+            "ip_type": "String",
+            "protocol": "String",
+            "subnet": "String",
+            "subnet_size": "int",
+            "port": "String",
+            "source": "String",
+            "notes": "String",
+
+            "required": ["ip_type", "protocol", "subnet", "subnet_size"]
+        }
+    },
+    
+    "instance": {
+        "InstancesModel": {
+            "instances": "List<InstanceModel>",
+            "meta": "MetaModel"
+        },
+        "InstanceModel": {
+            "id": "String",
+            "os": "String",
+            "ram": "int",
+            "disk": "String",
+            "main_ip": "String",
+            "vcpu_count": "int",
+            "region": "String",
+            "plan": "String",
+            "date_created": "String",
+            "status": "String",
+            "allowed_bandwidth": "int",
+            "netmask_v4": "String",
+            "gateway_v4": "String",
+            "power_status": "String",
+            "server_status": "String",
+            "v6_network": "String",
+            "v6_main_ip": "String",
+            "v6_network_size": "int",
+            "label": "String",
+            "internal_ip": "String",
+            "kvm": "String",
+            "tag": "String",
+            "os_id": "int",
+            "app_id": "int",
+            "firewall_group_id": "String",
+            "features": "List<String>"
+        },
+        "CreateInstanceModel": {
+            "region": "String",
+            "plan": "String",
+            "os_id": "int",
+            "ipxe_chain_url": "String",
+            "iso_id": "String",
+            "script_id": "String",
+            "snapshot_id": "String",
+            "enable_ipv6": "bool",
+            "attach_private_network": "List<String>",
+            "label": "String",
+            "sshkey_id": "String",
+            "backups": "String",
+            "app_id": "int",
+            "user_data": "String",
+            "ddos_protection": "bool",
+            "activation_email": "bool",
+            "hostname": "String",
+            "tag": "String",
+            "firewall_group_id": "String",
+            "reserved_ipv4": "String",
+            "enable_private_network": "bool",
+
+            "required": ["region", "plan"]
+        },
+        "UpdateInstanceModel": {
+            "app_id": "int",
+            "backups": "String",
+            "firewall_group_id": "String",
+            "enable_ipv6": "bool",
+            "os_id": "String",
+            "user_data": "String",
+            "tag": "String",
+            "plan": "String",
+            "ddos_protection": "bool",
+            "attach_private_network": "List<String>",
+            "detach_private_network": "List<String>",
+            "enable_private_network": "bool"
+        },
+        "PrivateNetworksInstanceModel": {
+            "private_networks": "List<PrivateNetworkInstanceModel>",
+            "meta": "MetaModel"
+        },
+        "PrivateNetworkInstanceModel": {
+            "network_id": "String",
+            "mac_address": "String",
+            "ip_address": "String"
+        },
+        "ISOStatusInstanceModel": {
+            "status": "String",
+            "iso_id": "String"
+        },
+        "BackupScheduleInstanceModel": {
+            "type": "String",
+            "hour": "int",
+            "dow": "int",
+            "dom": "int",
+
+            "required": ["type"]
+        },
+        "IPv4sInstanceModel": {
+            "ipv4s": "List<IPv4InstanceModel>",
+            "meta": "MetaModel"
+        },
+        "IPv6sInstanceModel": {
+            "ipv46": "List<IPv6InstanceModel>",
+            "meta": "MetaModel"
+        },
+        "IPv4InstanceModel": {
+            "ip": "String",
+            "netmask": "String",
+            "gateway": "String",
+            "type": "String",
+            "reverse": "String"
+        },
+        "IPv6InstanceModel": {
+            "ip": "String",
+            "netmask": "String",
+            "network_size": "int",
+            "type": "String"
+        },
+        "ReverseIPModel": {
+            "ip": "String",
+            "reverse": "String"
+        }
+    },
+
+    "iso": {
+        "ISOsModel": {
+            "isos": "List<ISOModel>",
+            "meta": "MetaModel"
+        },
+        "ISOModel": {
+            "id": "String",
+            "date_created": "String",
+            "filename": "String",
+            "size": "int",
+            "md5sum": "String",
+            "sha512sum": "String",
+            "status": "String"
+        },
+        "PublicISOsModel": {
+            "public_isos": "List<ISOModel>",
+            "meta": "MetaModel"
+        }
+    },
+
+    "loadbalancer": {
+        "LoadBalancersModel": {
+            "load_balancers": "List<LoadBalancerModel>",
+            "meta": "MetaModel"
+        },
+        "LoadBalancerModel": {
+            "id": "String",
+            "date_created": "String",
+            "region": "String",
+            "label": "String",
+            "status": "String",
+            "ipv4": "String",
+            "ipv6": "String",
+            "generic_info": "LoadBalancerGenericInfoModel",
+            "health_check": "LoadBalancerHealthCheckModel",
+            "has_ssl": "bool",
+            "forwarding_rules": "List<LoadBalancerForwardingRuleModel>",
+            "instances": "List<String>"
+        },
+        "LoadBalancerGenericInfoModel": {
+            "balancing_algorithm": "String",
+            "ssl_redirect": "bool",
+            "sticky_sessions": "Map<String, String>",
+            "proxy_protocol": "bool"
+        },
+        "LoadBalancerHealthCheckModel": {
+            "protocol": "String",
+            "port": "int",
+            "path": "String",
+            "check_interval": "int",
+            "response_timeout": "int",
+            "unhealthy_threshold": "int",
+            "healthy_threshold": "int"
+        },
+        "LoadBalancerForwardingRuleModel": {
+            "id": "String",
+            "frontend_protocol": "String",
+            "frontend_port": "int",
+            "backend_protocol": "String",
+            "backend_port": "int"
+        },
+        "CreateLoadBalancerModel": {
+            "region": "String",
+            "balancing_algorithm": "String",
+            "ssl_redirect": "bool",
+            "proxy_protocol": "bool",
+            "health_check": "LoadBalancerHealthCheckModel",
+            "forwarding_rules": "List<LoadBalancerForwardingRuleModel>",
+            "sticky_session": "Map<String, String>",
+            "ssl": "SSLLoadBalancerModel",
+            "label": "String",
+            "instances": "List<String>"
+        },
+        "SSLLoadBalancerModel": {
+            "priate_key": "String",
+            "certificate": "String",
+            "chain": "String"
+        },
+        "UpdateLoadBalancerModel": {
+            "ssl": "SSLLoadBalancerModel",
+            "sticky_session": "Map<String, String>",
+            "forwarding_rules": "List<LoadBalancerForwardingRuleModel>",
+            "health_check": "LoadBalancerHealthCheckModel",
+            "proxy_protocol": "bool",
+            "ssl_redirect": "bool",
+            "balancing_algorithm": "String",
+            "instances": "List<String>"
+        },
+        "LoadBalancerForwardingRulesModel": {
+            "forwarding_rules": "List<LoadBalancerForwardingRuleModel>",
+            "meta": "MetaModel"
+        },
+        "CreateLoadBalancerForwardingRuleModel": {
+            "frontend_protocol": "String",
+            "frontend_port": "int",
+            "backend_protocol": "String",
+            "backend_port": "int",
+            
+            "required": ["frontend_protocol", "frontend_port", "backend_protocol", "backend_port"]
+        }
+    },
+
+    "objectStorage": {
+        "ObjectStoragesModel": {
+            "object_storages": "List<ObjectStorageModel>",
+            "meta": "MetaModel"
+        },
+        "ObjectStorageModel": {
+            "id": "String",
+            "date_created": "String",
+            "cluster_id": "int",
+            "region": "String",
+            "label": "String",
+            "status": "String",
+            "s3_hostname": "String",
+            "s3_access_key": "String",
+            "s3_secret_key": "String"
+        },
+        "CreateObjectStorageModel": {
+            "cluster_id": "int",
+            "label": "String"
+        },
+        "ObjectStroageS3CredentialModel": {
+            "s3_hostname": "String",
+            "s3_access_key": "String",
+            "s3_secret_key": "String"
+        },
+        "ObjectStorageClustersModel": {
+            "clusters": "List<ObjectStorageClusterModel>",
+            "meta": "MetaModel"
+        },
+        "ObjectStorageClusterModel": {
+            "id": "String",
+            "region": "String",
+            "hostname": "String",
+            "deploy": "String"
+        }
+    },
+
+    "os": {
+        "OSsModel": {
+            "os": "List<OSModel>",
+            "meta": "MetaModel"
+        },
+        "OSModel": {
+            "id": "int",
+            "name": "String",
+            "arch": "String",
+            "family": "String"
+        }
+    },
+
+    "plans": {
+        "PlansModel": {
+            "plans": "List<PlanModel>",
+            "meta": "MetaModel"
+        },
+        "PlanModel": {
+            "id": "String",
+            "vcpu_count": "int",
+            "ram": "int",
+            "disk": "int",
+            "bandwidth": "int",
+            "monthly_cost": "String",
+            "type": "String",
+            "locations": "List<String>"
+        }
+    },
+
+    "privateNetwork": {
+        "PrivateNetworksModel": {
+            "networks": "List<PrivateNetworkModel>",
+            "meta": "MetaModel"
+        },
+        "PrivateNetworkModel": {
+            "id": "String",
+            "date_created": "String",
+            "region": "String",
+            "description": "String",
+            "v4_subnet": "String",
+            "v4_subnet_mask": "int"
+        },
+        "CreatePrivateNetworkModel": {
+            "region": "String",
+            "description": "String",
+            "v4_subnet": "String",
+            "v4_subnet_mask": "int",
+            
+            "required": ["region"]
+        }
+    },
+
+    "reservedIp": {
+        "ReservedIPsModel": {
+            "reserved_ips": "List<ReservedIPModel>",
+            "meta": "MetaModel"
+        },
+        "ReservedIPModel": {
+            "id": "String",
+            "region": "String",
+            "ip_type": "String",
+            "subnet": "String",
+            "subnet_size": "int",
+            "label": "String",
+            "instance_id": "String"
+        },
+        "CreateReservedIP": {
+            "region": "String",
+            "ip_type": "String",
+            "label": "String",
+
+            "required": ["region", "ip_type"]
+        }
+    },
+
+    "regions": {
+        "RegionsModel": {
+            "regions": "List<RegionModel>",
+            "meta": "MetaModel"
+        },
+        "RegionModel": {
+            "id": "String",
+            "city": "String",
+            "country": "String",
+            "continent": "String",
+            "options": "Map<String, String>"
+        }
+    },
+
+    "snapshot": {
+        "SnapshotsModel": {
+            "snapshots": "List<SnapshotModel>",
+            "meta": "MetaModel"
+        },
+        "SnapshotModel": {
+            "id": "String",
+            "date_created": "String",
+            "description": "String",
+            "size": "Uint32",
+            "status": "String",
+            "OSID": "int",
+            "APPID": "int"
+        }
+    },
+
+    "sshkey": {
+        "SSHKeysModel": {
+            "ssh_keys": "List<SSHKeyModel>",
+            "meta": "MetaModel"
+        },
+        "SSHKeyModel": {
+            "id": "String",
+            "date_created": "String",
+            "name": "String",
+            "ssh_key": "String"
+        }
+    },
+
+    "startupScript": {
+        "StartupScriptsModel": {
+            "startup_scripts": "List<StartupScriptModel>",
+            "meta": "MetaModel"
+        },
+        "StartupScriptModel": {
+            "id": "String",
+            "date_created": "String",
+            "date_modified": "String",
+            "name": "String",
+            "type": "String",
+            "script": "String"
+        }
+    },
+
+    "user": {
+        "UsersModel": {
+            "users": "List<UserModel>",
+            "meta": "MetaModel"
+        },
+        "UserModel": {
+            "id": "String",
+            "email": "String",
+            "api_enabled": "bool",
+            "acls": "List<String>"
+        }
+    },
+
+    "common": {
+        "MetaModel": {
+            "total": "int",
+            "links": "Map<String, String>"
+        },
+        "BandwidthModel": {
+            "incoming_bytes": "int",
+            "outgoing_bytes": "int"
+        }
+    }
+    
+}

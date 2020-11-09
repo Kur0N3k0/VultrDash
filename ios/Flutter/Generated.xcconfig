@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/kuroneko/tool/flutter
-FLUTTER_APPLICATION_PATH=/Users/kuroneko/Desktop/dev/VultrDash
-FLUTTER_TARGET=/Users/kuroneko/Desktop/dev/VultrDash/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/kuroneko/Desktop/SynologyDrive/mac/dev/VultrDash
+FLUTTER_TARGET=/Users/kuroneko/Desktop/SynologyDrive/mac/dev/VultrDash/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 OTHER_LDFLAGS=$(inherited) -framework Flutter
