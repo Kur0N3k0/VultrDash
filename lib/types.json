@@ -205,6 +205,15 @@
             "rule_count": "int",
             "max_rule_count": "int"
         },
+        "CreateFirewallGroupModel": {
+            "ip_type": "String",
+            "protocol": "String",
+            "subnet": "String",
+            "subnet_size": "int",
+            "port": "String",
+            "source": "String",
+            "notes": "String"
+        },
         "FirewallRulesModel": {
             "firewall_rules": "List<FirewallRuleModel>",
             "meta": "MetaModel"

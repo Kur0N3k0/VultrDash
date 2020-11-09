@@ -44,7 +44,7 @@ class DNS extends API {
   }
 
   Future<DomainRecordModel> getRecord(String dnsDomain, String recordId) {
-    return this.Get("/domains/$dnsDomain/records/$recordId", null).then((value) => DomainRecordModel.fromJson(value));
+    return this.Get("/domains/$dnsDomain/records/$recordId", null).then((value) => DomainRecordModel.fromJson(value["record"]));
   }
 
   Future updateRecord(String dnsDomain, String recordId, UpdateDomainRecordModel param) {

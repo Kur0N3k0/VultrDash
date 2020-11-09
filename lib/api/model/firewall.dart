@@ -44,6 +44,35 @@ class FirewallGroupModel {
   };
 }
 
+class CreateFirewallGroupModel {
+  String ipType;
+  String protocol;
+  String subnet;
+  int subnetSize;
+  String port;
+  String source;
+  String notes;
+
+  CreateFirewallGroupModel.fromJson(Map<String, dynamic> json)
+    : ipType = json['ip_type'],
+      protocol = json['protocol'],
+      subnet = json['subnet'],
+      subnetSize = json['subnet_size'],
+      port = json['port'],
+      source = json['source'],
+      notes = json['notes'];
+
+  Map<String, dynamic> toJson() => {
+    "ip_type": ipType,
+    "protocol": protocol,
+    "subnet": subnet,
+    "subnet_size": subnetSize,
+    "port": port,
+    "source": source,
+    "notes": notes
+  };
+}
+
 class FirewallRulesModel {
   List<FirewallRuleModel> firewallRules;
   MetaModel meta;
