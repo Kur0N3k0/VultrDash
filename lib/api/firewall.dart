@@ -1,5 +1,4 @@
 import 'package:VultrDash/api/api.dart';
-import 'package:VultrDash/api/model/baremetal.dart';
 import 'package:VultrDash/api/model/firewall.dart';
 
 class Firewall extends API {
