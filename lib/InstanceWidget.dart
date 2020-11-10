@@ -20,20 +20,19 @@ class _InstanceWidgetState extends State<InstanceWidget> {
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           print("maxWidth: ${MediaQuery.of(context).size.width}");
-            return Container(
-              child: Text(
-                instance.name,
-                style: TextStyle(color: Colors.black),
-              ),
-              width: MediaQuery.of(context).size.width / 2.1,
-              height: MediaQuery.of(context).size.width / 2.1 / 1.5,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
+          return Container(
+            child: Text(
+              instance.name,
+              style: TextStyle(color: Colors.black),
+            ),
+            width: MediaQuery.of(context).size.width / 2.1,
+            height: MediaQuery.of(context).size.width / 2.1 / 1.5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(color: Colors.grey)
-              ),
-            );
+                border: Border.all(color: Colors.grey)),
+          );
         },
       ),
     );

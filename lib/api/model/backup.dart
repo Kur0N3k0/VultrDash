@@ -6,13 +6,10 @@ class BackupsModel {
   MetaModel meta;
 
   BackupsModel.fromJson(Map<String, dynamic> json)
-    : backups = (json['backups'] as List).map((e) => BackupModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['backups']);
+      : backups = (json['backups'] as List).map((e) => BackupModel.fromJson(e)),
+        meta = MetaModel.fromJson(json['backups']);
 
-  Map<String, dynamic> toJson() => {
-    "backups": backups,
-    "meta": meta
-  };
+  Map<String, dynamic> toJson() => {"backups": backups, "meta": meta};
 }
 
 class BackupModel {
@@ -23,18 +20,17 @@ class BackupModel {
   String status;
 
   BackupModel.fromJson(Map<String, dynamic> json)
-    : id = json['id'],
-      dateCreated = json['date_created'],
-      description = json['description'],
-      size = json['size'],
-      status = json['status'];
+      : id = json['id'],
+        dateCreated = json['date_created'],
+        description = json['description'],
+        size = json['size'],
+        status = json['status'];
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "date_created": dateCreated,
-    "description": description,
-    "size": size,
-    "status": status
-  };
+        "id": id,
+        "date_created": dateCreated,
+        "description": description,
+        "size": size,
+        "status": status
+      };
 }
-

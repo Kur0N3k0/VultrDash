@@ -6,13 +6,10 @@ class MetaModel {
   Map<String, String> links;
 
   MetaModel.fromJson(Map<String, dynamic> json)
-    : total = json['total'],
-      links = json['links'];
+      : total = json['total'],
+        links = json['links'];
 
-  Map<String, dynamic> toJson() => {
-    "total": total,
-    "links": links
-  };
+  Map<String, dynamic> toJson() => {"total": total, "links": links};
 }
 
 class BandwidthModel {
@@ -20,12 +17,9 @@ class BandwidthModel {
   int outgoingBytes;
 
   BandwidthModel.fromJson(Map<String, dynamic> json)
-    : incomingBytes = json['incoming_bytes'],
-      outgoingBytes = json['outgoing_bytes'];
+      : incomingBytes = json['incoming_bytes'],
+        outgoingBytes = json['outgoing_bytes'];
 
-  Map<String, dynamic> toJson() => {
-    "incoming_bytes": incomingBytes,
-    "outgoing_bytes": outgoingBytes
-  };
+  Map<String, dynamic> toJson() =>
+      {"incoming_bytes": incomingBytes, "outgoing_bytes": outgoingBytes};
 }
-

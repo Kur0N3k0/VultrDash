@@ -1,21 +1,31 @@
 import 'package:VultrDash/api/api.dart';
+import 'package:VultrDash/api/model/common.dart';
 import 'package:VultrDash/api/model/instance.dart';
 
 class Instance extends API {
   Future<InstancesModel> getInfo() {
-    return this.Get("/instances", null).then((value) => InstancesModel.fromJson(value));
+    return this
+        .Get("/instances", null)
+        .then((value) => InstancesModel.fromJson(value));
   }
 
   Future<InstanceModel> createInstance(CreateInstanceModel param) {
-    return this.Post("/instances", null, param.toJson()).then((value) => InstanceModel.fromJson(value["instance"]));
+    return this
+        .Post("/instances", null, param.toJson())
+        .then((value) => InstanceModel.fromJson(value["instance"]));
   }
 
   Future<InstanceModel> getInstance(String instanceId) {
-    return this.Get("/instances/$instanceId", null).then((value) => InstanceModel.fromJson(value["instance"]));
+    return this
+        .Get("/instances/$instanceId", null)
+        .then((value) => InstanceModel.fromJson(value["instance"]));
   }
 
-  Future<InstanceModel> updateInstance(String instanceId, UpdateInstanceModel param) {
-    return this.Patch("/instances/$instanceId", null, param.toJson()).then((value) => InstanceModel.fromJson(value["instance"]));
+  Future<InstanceModel> updateInstance(
+      String instanceId, UpdateInstanceModel param) {
+    return this
+        .Patch("/instances/$instanceId", null, param.toJson())
+        .then((value) => InstanceModel.fromJson(value["instance"]));
   }
 
   Future deleteInstance(String instanceId) {
@@ -23,15 +33,15 @@ class Instance extends API {
   }
 
   Future haltInstances(List<String> instanceIds) {
-    return this.Post("/instances/halt", null, { "instance_ids": instanceIds });
+    return this.Post("/instances/halt", null, {"instance_ids": instanceIds});
   }
 
   Future rebootInstances(List<String> instanceIds) {
-    return this.Post("/instances/reboot", null, { "instance_ids": instanceIds });
+    return this.Post("/instances/reboot", null, {"instance_ids": instanceIds});
   }
 
   Future startInstances(List<String> instanceIds) {
-    return this.Post("/instances/start", null, { "instance_ids": instanceIds });
+    return this.Post("/instances/start", null, {"instance_ids": instanceIds});
   }
 
   Future startInstance(String instanceId) {
@@ -43,12 +53,33 @@ class Instance extends API {
   }
 
   Future<InstanceModel> reinstallInstance(String instanceId, String hostname) {
-    return this.Post("/instances/$instanceId/reinstall", null, { "hostname": hostname }).then((value) => InstanceModel.fromJson(value));
+    return this.Post("/instances/$instanceId/reinstall", null,
+        {"hostname": hostname}).then((value) => InstanceModel.fromJson(value));
   }
 
   Future<Map<String, BandwidthModel>> bandwidthInstance(String instanceId) {
-    return this.Get("/instances/$instanceId", null).then((value) => value as Map<String, BandwidthModel>);
+    return this
+        .Get("/instances/$instanceId", null)
+        .then((value) => value as Map<String, BandwidthModel>);
   }
 
-  // neighbor...
+  Future<List<String>> getNeighbors(String instanceId) {
+    return this
+        .Get("/instances/$instanceId/neighbors", null)
+        .then((value) => value["neighbors"]);
+  }
+
+  Future<PrivateNetworksInstanceModel> getPrivateNetworks(String instanceId) {
+    return this
+        .Get("/instances/$instanceId/private-networks", null)
+        .then((value) => PrivateNetworksInstanceModel.fromJson(value));
+  }
+
+  Future<ISOStatusInstanceModel> getISOStatus(String instanceId) {
+    return this
+        .Get("/instances/$instanceId/iso", null)
+        .then((value) => ISOStatusInstanceModel.fromJson(value));
+  }
+
+  // ... attach iso
 }

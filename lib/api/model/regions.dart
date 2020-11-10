@@ -6,13 +6,10 @@ class RegionsModel {
   MetaModel meta;
 
   RegionsModel.fromJson(Map<String, dynamic> json)
-    : regions = (json['regions'] as List).map((e) => RegionModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['regions']);
+      : regions = (json['regions'] as List).map((e) => RegionModel.fromJson(e)),
+        meta = MetaModel.fromJson(json['regions']);
 
-  Map<String, dynamic> toJson() => {
-    "regions": regions,
-    "meta": meta
-  };
+  Map<String, dynamic> toJson() => {"regions": regions, "meta": meta};
 }
 
 class RegionModel {
@@ -23,18 +20,17 @@ class RegionModel {
   Map<String, String> options;
 
   RegionModel.fromJson(Map<String, dynamic> json)
-    : id = json['id'],
-      city = json['city'],
-      country = json['country'],
-      continent = json['continent'],
-      options = json['options'];
+      : id = json['id'],
+        city = json['city'],
+        country = json['country'],
+        continent = json['continent'],
+        options = json['options'];
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "city": city,
-    "country": country,
-    "continent": continent,
-    "options": options
-  };
+        "id": id,
+        "city": city,
+        "country": country,
+        "continent": continent,
+        "options": options
+      };
 }
-
