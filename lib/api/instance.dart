@@ -53,8 +53,9 @@ class Instance extends API {
   }
 
   Future<InstanceModel> reinstallInstance(String instanceId, String hostname) {
-    return this.Post("/instances/$instanceId/reinstall", null,
-        {"hostname": hostname}).then((value) => InstanceModel.fromJson(value));
+    return this.Post("/instances/$instanceId/reinstall", null, {
+      "hostname": hostname
+    }).then((value) => InstanceModel.fromJson(value["instance"]));
   }
 
   Future<Map<String, BandwidthModel>> bandwidthInstance(String instanceId) {
@@ -78,8 +79,28 @@ class Instance extends API {
   Future<ISOStatusInstanceModel> getISOStatus(String instanceId) {
     return this
         .Get("/instances/$instanceId/iso", null)
-        .then((value) => ISOStatusInstanceModel.fromJson(value));
+        .then((value) => ISOStatusInstanceModel.fromJson(value["iso_status"]));
   }
 
-  // ... attach iso
+  Future<ISOStatusInstanceModel> attachISO(String instanceId, String isoId) {
+    return this.Post("/instances/$instanceId/iso/attach", null, {
+      "iso_id": isoId
+    }).then((value) => ISOStatusInstanceModel.fromJson(value["iso_status"]));
+  }
+
+  Future<ISOStatusInstanceModel> detachISO(String instanceId) {
+    return this
+        .Post("/instances/$instanceId/iso/detach", null, null)
+        .then((value) => ISOStatusInstanceModel.fromJson(value["iso_status"]));
+  }
+
+  Future attachPrivateNetwork(String instanceId, String networkId) {
+    return this.Post("/instances/$instanceId/private-networks/attach", null,
+        {"network_id": networkId});
+  }
+
+  Future detachPrivateNetwork(String instanceId, String networkId) {
+    return this.Post("/instances/$instanceId/private-networks/detach", null,
+        {"network_id": networkId});
+  }
 }
