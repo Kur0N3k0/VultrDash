@@ -327,13 +327,26 @@
             "status": "String",
             "iso_id": "String"
         },
-        "BackupScheduleInstanceModel": {
+        "SetBackupScheduleInstanceModel": {
             "type": "String",
             "hour": "int",
             "dow": "int",
             "dom": "int",
 
             "required": ["type"]
+        },
+        "BackupScheduleInstanceModel": {
+            "enabled": "bool",
+            "type": "String",
+            "next_scheduled_time_utc": "String",
+            "hour": "int",
+            "dow": "int",
+            "dom": "int"
+        },
+        "RestoreInstanceStatusModel": {
+            "restore_type": "String",
+            "restore_id": "String",
+            "status": "String"
         },
         "IPv4sInstanceModel": {
             "ipv4s": "List<IPv4InstanceModel>",

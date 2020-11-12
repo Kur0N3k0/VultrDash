@@ -6,12 +6,13 @@ class ObjectStoragesModel {
   MetaModel meta;
 
   ObjectStoragesModel.fromJson(Map<String, dynamic> json)
-      : objectStorages = (json['object_storages'] as List)
-            .map((e) => ObjectStorageModel.fromJson(e)),
-        meta = MetaModel.fromJson(json['object_storages']);
+    : objectStorages = (json['object_storages'] as List).map((e) => ObjectStorageModel.fromJson(e)),
+      meta = MetaModel.fromJson(json['object_storages']);
 
-  Map<String, dynamic> toJson() =>
-      {"object_storages": objectStorages, "meta": meta};
+  Map<String, dynamic> toJson() => {
+    "object_storages": objectStorages,
+    "meta": meta
+  };
 }
 
 class ObjectStorageModel {
@@ -26,27 +27,27 @@ class ObjectStorageModel {
   String s3SecretKey;
 
   ObjectStorageModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        dateCreated = json['date_created'],
-        clusterId = json['cluster_id'],
-        region = json['region'],
-        label = json['label'],
-        status = json['status'],
-        s3Hostname = json['s3_hostname'],
-        s3AccessKey = json['s3_access_key'],
-        s3SecretKey = json['s3_secret_key'];
+    : id = json['id'],
+      dateCreated = json['date_created'],
+      clusterId = json['cluster_id'],
+      region = json['region'],
+      label = json['label'],
+      status = json['status'],
+      s3Hostname = json['s3_hostname'],
+      s3AccessKey = json['s3_access_key'],
+      s3SecretKey = json['s3_secret_key'];
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "date_created": dateCreated,
-        "cluster_id": clusterId,
-        "region": region,
-        "label": label,
-        "status": status,
-        "s3_hostname": s3Hostname,
-        "s3_access_key": s3AccessKey,
-        "s3_secret_key": s3SecretKey
-      };
+    "id": id,
+    "date_created": dateCreated,
+    "cluster_id": clusterId,
+    "region": region,
+    "label": label,
+    "status": status,
+    "s3_hostname": s3Hostname,
+    "s3_access_key": s3AccessKey,
+    "s3_secret_key": s3SecretKey
+  };
 }
 
 class CreateObjectStorageModel {
@@ -54,10 +55,13 @@ class CreateObjectStorageModel {
   String label;
 
   CreateObjectStorageModel.fromJson(Map<String, dynamic> json)
-      : clusterId = json['cluster_id'],
-        label = json['label'];
+    : clusterId = json['cluster_id'],
+      label = json['label'];
 
-  Map<String, dynamic> toJson() => {"cluster_id": clusterId, "label": label};
+  Map<String, dynamic> toJson() => {
+    "cluster_id": clusterId,
+    "label": label
+  };
 }
 
 class ObjectStroageS3CredentialModel {
@@ -66,15 +70,15 @@ class ObjectStroageS3CredentialModel {
   String s3SecretKey;
 
   ObjectStroageS3CredentialModel.fromJson(Map<String, dynamic> json)
-      : s3Hostname = json['s3_hostname'],
-        s3AccessKey = json['s3_access_key'],
-        s3SecretKey = json['s3_secret_key'];
+    : s3Hostname = json['s3_hostname'],
+      s3AccessKey = json['s3_access_key'],
+      s3SecretKey = json['s3_secret_key'];
 
   Map<String, dynamic> toJson() => {
-        "s3_hostname": s3Hostname,
-        "s3_access_key": s3AccessKey,
-        "s3_secret_key": s3SecretKey
-      };
+    "s3_hostname": s3Hostname,
+    "s3_access_key": s3AccessKey,
+    "s3_secret_key": s3SecretKey
+  };
 }
 
 class ObjectStorageClustersModel {
@@ -82,11 +86,13 @@ class ObjectStorageClustersModel {
   MetaModel meta;
 
   ObjectStorageClustersModel.fromJson(Map<String, dynamic> json)
-      : clusters = (json['clusters'] as List)
-            .map((e) => ObjectStorageClusterModel.fromJson(e)),
-        meta = MetaModel.fromJson(json['clusters']);
+    : clusters = (json['clusters'] as List).map((e) => ObjectStorageClusterModel.fromJson(e)),
+      meta = MetaModel.fromJson(json['clusters']);
 
-  Map<String, dynamic> toJson() => {"clusters": clusters, "meta": meta};
+  Map<String, dynamic> toJson() => {
+    "clusters": clusters,
+    "meta": meta
+  };
 }
 
 class ObjectStorageClusterModel {
@@ -96,11 +102,16 @@ class ObjectStorageClusterModel {
   String deploy;
 
   ObjectStorageClusterModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        region = json['region'],
-        hostname = json['hostname'],
-        deploy = json['deploy'];
+    : id = json['id'],
+      region = json['region'],
+      hostname = json['hostname'],
+      deploy = json['deploy'];
 
-  Map<String, dynamic> toJson() =>
-      {"id": id, "region": region, "hostname": hostname, "deploy": deploy};
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "region": region,
+    "hostname": hostname,
+    "deploy": deploy
+  };
 }
+

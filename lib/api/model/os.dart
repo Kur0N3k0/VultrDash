@@ -6,10 +6,13 @@ class OSsModel {
   MetaModel meta;
 
   OSsModel.fromJson(Map<String, dynamic> json)
-      : os = (json['os'] as List).map((e) => OSModel.fromJson(e)),
-        meta = MetaModel.fromJson(json['os']);
+    : os = (json['os'] as List).map((e) => OSModel.fromJson(e)),
+      meta = MetaModel.fromJson(json['os']);
 
-  Map<String, dynamic> toJson() => {"os": os, "meta": meta};
+  Map<String, dynamic> toJson() => {
+    "os": os,
+    "meta": meta
+  };
 }
 
 class OSModel {
@@ -19,11 +22,16 @@ class OSModel {
   String family;
 
   OSModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        arch = json['arch'],
-        family = json['family'];
+    : id = json['id'],
+      name = json['name'],
+      arch = json['arch'],
+      family = json['family'];
 
-  Map<String, dynamic> toJson() =>
-      {"id": id, "name": name, "arch": arch, "family": family};
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "arch": arch,
+    "family": family
+  };
 }
+

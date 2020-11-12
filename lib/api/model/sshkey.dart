@@ -6,11 +6,13 @@ class SSHKeysModel {
   MetaModel meta;
 
   SSHKeysModel.fromJson(Map<String, dynamic> json)
-      : sshKeys =
-            (json['ssh_keys'] as List).map((e) => SSHKeyModel.fromJson(e)),
-        meta = MetaModel.fromJson(json['ssh_keys']);
+    : sshKeys = (json['ssh_keys'] as List).map((e) => SSHKeyModel.fromJson(e)),
+      meta = MetaModel.fromJson(json['ssh_keys']);
 
-  Map<String, dynamic> toJson() => {"ssh_keys": sshKeys, "meta": meta};
+  Map<String, dynamic> toJson() => {
+    "ssh_keys": sshKeys,
+    "meta": meta
+  };
 }
 
 class SSHKeyModel {
@@ -20,11 +22,16 @@ class SSHKeyModel {
   String sshKey;
 
   SSHKeyModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        dateCreated = json['date_created'],
-        name = json['name'],
-        sshKey = json['ssh_key'];
+    : id = json['id'],
+      dateCreated = json['date_created'],
+      name = json['name'],
+      sshKey = json['ssh_key'];
 
-  Map<String, dynamic> toJson() =>
-      {"id": id, "date_created": dateCreated, "name": name, "ssh_key": sshKey};
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "date_created": dateCreated,
+    "name": name,
+    "ssh_key": sshKey
+  };
 }
+

@@ -6,11 +6,13 @@ class SnapshotsModel {
   MetaModel meta;
 
   SnapshotsModel.fromJson(Map<String, dynamic> json)
-      : snapshots =
-            (json['snapshots'] as List).map((e) => SnapshotModel.fromJson(e)),
-        meta = MetaModel.fromJson(json['snapshots']);
+    : snapshots = (json['snapshots'] as List).map((e) => SnapshotModel.fromJson(e)),
+      meta = MetaModel.fromJson(json['snapshots']);
 
-  Map<String, dynamic> toJson() => {"snapshots": snapshots, "meta": meta};
+  Map<String, dynamic> toJson() => {
+    "snapshots": snapshots,
+    "meta": meta
+  };
 }
 
 class SnapshotModel {
@@ -23,21 +25,22 @@ class SnapshotModel {
   int APPID;
 
   SnapshotModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        dateCreated = json['date_created'],
-        description = json['description'],
-        size = json['size'],
-        status = json['status'],
-        OSID = json['OSID'],
-        APPID = json['APPID'];
+    : id = json['id'],
+      dateCreated = json['date_created'],
+      description = json['description'],
+      size = json['size'],
+      status = json['status'],
+      OSID = json['OSID'],
+      APPID = json['APPID'];
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "date_created": dateCreated,
-        "description": description,
-        "size": size,
-        "status": status,
-        "OSID": OSID,
-        "APPID": APPID
-      };
+    "id": id,
+    "date_created": dateCreated,
+    "description": description,
+    "size": size,
+    "status": status,
+    "OSID": OSID,
+    "APPID": APPID
+  };
 }
+
