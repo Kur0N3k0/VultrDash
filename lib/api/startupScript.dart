@@ -1,5 +1,4 @@
 import 'package:VultrDash/api/api.dart';
-import 'package:VultrDash/api/model/sshkey.dart';
 import 'package:VultrDash/api/model/startupScript.dart';
 
 class StartupScript extends API {
