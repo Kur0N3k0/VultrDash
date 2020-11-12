@@ -581,7 +581,7 @@
             "label": "String",
             "instance_id": "String"
         },
-        "CreateReservedIP": {
+        "CreateReservedIPModel": {
             "region": "String",
             "ip_type": "String",
             "label": "String",

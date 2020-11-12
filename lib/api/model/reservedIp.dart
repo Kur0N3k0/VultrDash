@@ -44,12 +44,12 @@ class ReservedIPModel {
   };
 }
 
-class CreateReservedIP {
+class CreateReservedIPModel {
   String region;
   String ipType;
   String label;
 
-  CreateReservedIP.fromJson(Map<String, dynamic> json)
+  CreateReservedIPModel.fromJson(Map<String, dynamic> json)
     : region = json['region'],
       ipType = json['ip_type'],
       label = json['label'];
