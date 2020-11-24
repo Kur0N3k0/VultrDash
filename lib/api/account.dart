@@ -5,6 +5,6 @@ class Account extends API {
   Future<AccountModel> getInfo() {
     return this
         .Get("/account", null)
-        .then((value) => AccountModel.fromJson(value));
+        .then((value) => AccountModel.fromJson(value["account"]));
   }
 }

@@ -3,7 +3,6 @@ import 'package:VultrDash/api/model/instance.dart';
 import 'package:VultrDash/navdrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:tuple/tuple.dart';
 
 class MainViewApp extends StatefulWidget {
@@ -102,7 +101,7 @@ class _MainViewAppState extends State<MainViewApp> {
                           filled: true,
                           contentPadding: EdgeInsets.all(10),
                           hintStyle: TextStyle(color: Colors.grey[800]),
-                          hintText: "Type in your text",
+                          hintText: "Filter server",
                           fillColor: Color.fromRGBO(0x31, 0x32, 0x35, 1.0)),
                     ),
                     Container(

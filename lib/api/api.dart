@@ -1,10 +1,9 @@
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:localstorage/localstorage.dart';
 
 class API {
   final String baseUrl = "https://api.vultr.com/v2";
-  static String credential = LocalStorage("config").getItem("credential");
+  static String credential = "";
 
   String parameterize(Map<String, dynamic> data) {
     var param = [];
@@ -20,11 +19,12 @@ class API {
     if (param != null) {
       pstr = parameterize(param);
     }
-
     var resp = await http.get("$baseUrl$url$pstr",
         headers: {"Authorization": "Bearer $credential"});
-    print(resp.statusCode);
-    assert(resp.statusCode / 400 < 1, resp.statusCode);
+
+    if (resp.statusCode >= 400) {
+      return Future.error(resp.statusCode);
+    }
     return convert.json.decode(resp.body);
   }
 
@@ -41,7 +41,9 @@ class API {
           "Content-Type": "application/json"
         },
         body: body);
-    assert(resp.statusCode / 400 < 1, resp.statusCode);
+    if (resp.statusCode >= 400) {
+      return Future.error(resp.statusCode);
+    }
     return convert.json.decode(resp.body);
   }
 
@@ -58,7 +60,9 @@ class API {
           "Content-Type": "application/json"
         },
         body: body);
-    assert(resp.statusCode / 400 < 1, resp.statusCode);
+    if (resp.statusCode >= 400) {
+      return Future.error(resp.statusCode);
+    }
     return convert.json.decode(resp.body);
   }
 
@@ -75,7 +79,9 @@ class API {
           "Content-Type": "application/json"
         },
         body: body);
-    assert(resp.statusCode / 400 < 1, resp.statusCode);
+    if (resp.statusCode >= 400) {
+      return Future.error(resp.statusCode);
+    }
     return convert.json.decode(resp.body);
   }
 
@@ -93,7 +99,9 @@ class API {
         "Content-Type": "application/json"
       },
     );
-    assert(resp.statusCode / 400 < 1, resp.statusCode);
+    if (resp.statusCode >= 400) {
+      return Future.error(resp.statusCode);
+    }
     return convert.json.decode(resp.body);
   }
 }

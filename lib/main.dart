@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:VultrDash/api/api.dart';
+import 'package:VultrDash/apikeysetup.dart';
 import 'package:flutter/material.dart';
 import 'package:VultrDash/mainview.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,10 +18,19 @@ class IntroViewApp extends StatefulWidget {
 }
 
 class _IntroViewAppState extends State<IntroViewApp> {
+  final storage = new FlutterSecureStorage();
+
   void _setMoveTimer(BuildContext context) async {
-    Timer(Duration(seconds: 2, milliseconds: 5), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainViewApp()));
+    String credential = await storage.read(key: "credential");
+    API.credential = credential;
+    Timer(Duration(seconds: 1, milliseconds: 5), () {
+      if (credential == null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => APIKeySetup()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MainViewApp()));
+      }
     });
   }
 
