@@ -6,8 +6,8 @@ class BlockStoragesModel {
   MetaModel meta;
 
   BlockStoragesModel.fromJson(Map<String, dynamic> json)
-    : blocks = (json['blocks'] as List).map((e) => BlockStorageModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['blocks']);
+    : blocks = (json['blocks'] as List).map((e) => BlockStorageModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "blocks": blocks,

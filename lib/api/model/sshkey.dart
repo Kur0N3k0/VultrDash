@@ -6,8 +6,8 @@ class SSHKeysModel {
   MetaModel meta;
 
   SSHKeysModel.fromJson(Map<String, dynamic> json)
-    : sshKeys = (json['ssh_keys'] as List).map((e) => SSHKeyModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['ssh_keys']);
+    : sshKeys = (json['ssh_keys'] as List).map((e) => SSHKeyModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "ssh_keys": sshKeys,

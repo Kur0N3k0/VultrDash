@@ -13,7 +13,7 @@ class AccountModel {
   AccountModel.fromJson(Map<String, dynamic> json)
     : name = json['name'],
       email = json['email'],
-      acls = json['acls'],
+      acls = new List<String>.from(json['acls']),
       balance = json['balance'],
       pendingCharges = json['pending_charges'],
       lastPaymentDate = json['last_payment_date'],

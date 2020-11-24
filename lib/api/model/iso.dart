@@ -6,8 +6,8 @@ class ISOsModel {
   MetaModel meta;
 
   ISOsModel.fromJson(Map<String, dynamic> json)
-    : isos = (json['isos'] as List).map((e) => ISOModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['isos']);
+    : isos = (json['isos'] as List).map((e) => ISOModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "isos": isos,
@@ -49,8 +49,8 @@ class PublicISOsModel {
   MetaModel meta;
 
   PublicISOsModel.fromJson(Map<String, dynamic> json)
-    : publicIsos = (json['public_isos'] as List).map((e) => ISOModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['public_isos']);
+    : publicIsos = (json['public_isos'] as List).map((e) => ISOModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "public_isos": publicIsos,

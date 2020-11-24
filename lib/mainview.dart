@@ -1,6 +1,10 @@
+import 'package:VultrDash/api/instance.dart';
+import 'package:VultrDash/api/model/instance.dart';
 import 'package:VultrDash/navdrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:tuple/tuple.dart';
 
 class MainViewApp extends StatefulWidget {
   @override
@@ -11,9 +15,65 @@ class _MainViewAppState extends State<MainViewApp> {
   final SvgPicture icon = SvgPicture.asset("./assets/img/icon-ubuntu.svg");
   final Image search = Image.asset("./assets/img/search.png");
   final Image flag = Image.asset("./assets/img/flagsm_jp.webp");
+  final List<Tuple2<InstanceModel, DataRow>> instances = [];
+  final List<DataRow> serverList = [];
+  final Map<String, String> regionMap = {
+    "ams": "Amsterdam",
+    "atl": "Atlanta",
+    "cdg": "Paris",
+    "dfw": "Dallas",
+    "ewr": "New Jersey",
+    "fra": "Frankfurt",
+    "icn": "Seoul",
+    "lax": "Los Angeles",
+    "lhr": "London",
+    "mia": "Miami",
+    "nrt": "Tokyo",
+    "ord": "Chicago",
+    "sea": "Seattle",
+    "sgp": "Singapore",
+    "sjc": "Silicon Valley",
+    "syd": "Sydney",
+    "yto": "Toronto"
+  };
 
   @override
   Widget build(BuildContext context) {
+    if (instances.isEmpty) {
+      Instance inst = new Instance();
+      inst.getInfo().then((value) => {
+            value.instances.forEach((element) {
+              instances.add(new Tuple2(
+                  element,
+                  DataRow(cells: [
+                    DataCell(Container(
+                        child: Text(element.label,
+                            style: TextStyle(color: Colors.white)),
+                        width: MediaQuery.of(context).size.width / 7)),
+                    DataCell(Container(
+                      child: icon,
+                      width: 20,
+                      alignment: Alignment.center,
+                    )),
+                    DataCell(Container(
+                      child: Text(regionMap[element.region],
+                          style: TextStyle(color: Colors.white)),
+                      alignment: Alignment.center,
+                    )),
+                    DataCell(Container(
+                        child: Text(element.powerStatus,
+                            style: TextStyle(color: Colors.white)),
+                        width: MediaQuery.of(context).size.width / 7)),
+                  ])));
+              instances.forEach((element) {
+                serverList.add(element.item2);
+              });
+
+              setState(() {});
+            })
+          });
+    }
+
     var result = Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -86,33 +146,7 @@ class _MainViewAppState extends State<MainViewApp> {
                                     alignment: Alignment.center,
                                   )),
                                 ],
-                                rows: [
-                                  DataRow(cells: [
-                                    DataCell(Container(
-                                        child: Text('nekop.kr',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                7)),
-                                    DataCell(Container(
-                                      child: icon,
-                                      width: 20,
-                                      alignment: Alignment.center,
-                                    )),
-                                    DataCell(Container(
-                                      child: flag,
-                                      alignment: Alignment.center,
-                                    )),
-                                    DataCell(Container(
-                                        child: Text('Running',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                7)),
-                                  ]),
-                                ],
+                                rows: serverList,
                               ),
                             )))
                   ],

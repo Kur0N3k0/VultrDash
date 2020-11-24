@@ -6,8 +6,8 @@ class UsersModel {
   MetaModel meta;
 
   UsersModel.fromJson(Map<String, dynamic> json)
-    : users = (json['users'] as List).map((e) => UserModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['users']);
+    : users = (json['users'] as List).map((e) => UserModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "users": users,
@@ -25,7 +25,7 @@ class UserModel {
     : id = json['id'],
       email = json['email'],
       apiEnabled = json['api_enabled'],
-      acls = json['acls'];
+      acls = new List<String>.from(json['acls']);
 
   Map<String, dynamic> toJson() => {
     "id": id,

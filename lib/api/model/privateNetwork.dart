@@ -6,8 +6,8 @@ class PrivateNetworksModel {
   MetaModel meta;
 
   PrivateNetworksModel.fromJson(Map<String, dynamic> json)
-    : networks = (json['networks'] as List).map((e) => PrivateNetworkModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['networks']);
+    : networks = (json['networks'] as List).map((e) => PrivateNetworkModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "networks": networks,

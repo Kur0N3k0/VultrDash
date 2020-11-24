@@ -6,8 +6,8 @@ class FirewallGroupsModel {
   MetaModel meta;
 
   FirewallGroupsModel.fromJson(Map<String, dynamic> json)
-    : firewallGroups = (json['firewall_groups'] as List).map((e) => FirewallGroupModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['firewall_groups']);
+    : firewallGroups = (json['firewall_groups'] as List).map((e) => FirewallGroupModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "firewall_groups": firewallGroups,
@@ -78,8 +78,8 @@ class FirewallRulesModel {
   MetaModel meta;
 
   FirewallRulesModel.fromJson(Map<String, dynamic> json)
-    : firewallRules = (json['firewall_rules'] as List).map((e) => FirewallRuleModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['firewall_rules']);
+    : firewallRules = (json['firewall_rules'] as List).map((e) => FirewallRuleModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "firewall_rules": firewallRules,

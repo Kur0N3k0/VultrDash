@@ -6,8 +6,8 @@ class BareMetalsModel {
   MetaModel meta;
 
   BareMetalsModel.fromJson(Map<String, dynamic> json)
-    : bareMetals = (json['bare_metals'] as List).map((e) => BareMetalModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['bare_metals']);
+    : bareMetals = (json['bare_metals'] as List).map((e) => BareMetalModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "bare_metals": bareMetals,

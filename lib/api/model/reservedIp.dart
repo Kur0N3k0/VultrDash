@@ -6,8 +6,8 @@ class ReservedIPsModel {
   MetaModel meta;
 
   ReservedIPsModel.fromJson(Map<String, dynamic> json)
-    : reservedIps = (json['reserved_ips'] as List).map((e) => ReservedIPModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['reserved_ips']);
+    : reservedIps = (json['reserved_ips'] as List).map((e) => ReservedIPModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "reserved_ips": reservedIps,

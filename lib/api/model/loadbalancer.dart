@@ -6,8 +6,8 @@ class LoadBalancersModel {
   MetaModel meta;
 
   LoadBalancersModel.fromJson(Map<String, dynamic> json)
-    : loadBalancers = (json['load_balancers'] as List).map((e) => LoadBalancerModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['load_balancers']);
+    : loadBalancers = (json['load_balancers'] as List).map((e) => LoadBalancerModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "load_balancers": loadBalancers,
@@ -37,11 +37,11 @@ class LoadBalancerModel {
       status = json['status'],
       ipv4 = json['ipv4'],
       ipv6 = json['ipv6'],
-      genericInfo = LoadBalancerGenericInfoModel.fromJson(json['id']),
-      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['id']),
+      genericInfo = LoadBalancerGenericInfoModel.fromJson(json['generic_info']),
+      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['health_check']),
       hasSsl = json['has_ssl'],
-      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)),
-      instances = json['instances'];
+      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)).toList(),
+      instances = new List<String>.from(json['instances']);
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -68,7 +68,7 @@ class LoadBalancerGenericInfoModel {
   LoadBalancerGenericInfoModel.fromJson(Map<String, dynamic> json)
     : balancingAlgorithm = json['balancing_algorithm'],
       sslRedirect = json['ssl_redirect'],
-      stickySessions = json['sticky_sessions'],
+      stickySessions = Map<String, String>.from(json['sticky_sessions']),
       proxyProtocol = json['proxy_protocol'];
 
   Map<String, dynamic> toJson() => {
@@ -148,12 +148,12 @@ class CreateLoadBalancerModel {
       balancingAlgorithm = json['balancing_algorithm'],
       sslRedirect = json['ssl_redirect'],
       proxyProtocol = json['proxy_protocol'],
-      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['region']),
-      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)),
-      stickySession = json['sticky_session'],
-      ssl = SSLLoadBalancerModel.fromJson(json['region']),
+      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['health_check']),
+      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)).toList(),
+      stickySession = Map<String, String>.from(json['sticky_session']),
+      ssl = SSLLoadBalancerModel.fromJson(json['ssl']),
       label = json['label'],
-      instances = json['instances'];
+      instances = new List<String>.from(json['instances']);
 
   Map<String, dynamic> toJson() => {
     "region": region,
@@ -198,13 +198,13 @@ class UpdateLoadBalancerModel {
 
   UpdateLoadBalancerModel.fromJson(Map<String, dynamic> json)
     : ssl = SSLLoadBalancerModel.fromJson(json['ssl']),
-      stickySession = json['sticky_session'],
-      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)),
-      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['ssl']),
+      stickySession = Map<String, String>.from(json['sticky_session']),
+      forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)).toList(),
+      healthCheck = LoadBalancerHealthCheckModel.fromJson(json['health_check']),
       proxyProtocol = json['proxy_protocol'],
       sslRedirect = json['ssl_redirect'],
       balancingAlgorithm = json['balancing_algorithm'],
-      instances = json['instances'];
+      instances = new List<String>.from(json['instances']);
 
   Map<String, dynamic> toJson() => {
     "ssl": ssl,
@@ -223,8 +223,8 @@ class LoadBalancerForwardingRulesModel {
   MetaModel meta;
 
   LoadBalancerForwardingRulesModel.fromJson(Map<String, dynamic> json)
-    : forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['forwarding_rules']);
+    : forwardingRules = (json['forwarding_rules'] as List).map((e) => LoadBalancerForwardingRuleModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "forwarding_rules": forwardingRules,

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
 class API {
-  final String baseUrl = "http://api.vultr.com/v2";
+  final String baseUrl = "https://api.vultr.com/v2";
   static String credential = LocalStorage("config").getItem("credential");
 
   String parameterize(Map<String, dynamic> data) {
@@ -23,6 +23,7 @@ class API {
 
     var resp = await http.get("$baseUrl$url$pstr",
         headers: {"Authorization": "Bearer $credential"});
+    print(resp.statusCode);
     assert(resp.statusCode / 400 < 1, resp.statusCode);
     return convert.json.decode(resp.body);
   }

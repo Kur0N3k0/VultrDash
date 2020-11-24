@@ -6,8 +6,8 @@ class InstancesModel {
   MetaModel meta;
 
   InstancesModel.fromJson(Map<String, dynamic> json)
-    : instances = (json['instances'] as List).map((e) => InstanceModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['instances']);
+    : instances = (json['instances'] as List).map((e) => InstanceModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "instances": instances,
@@ -19,7 +19,7 @@ class InstanceModel {
   String id;
   String os;
   int ram;
-  String disk;
+  int disk;
   String mainIp;
   int vcpuCount;
   String region;
@@ -69,7 +69,7 @@ class InstanceModel {
       osId = json['os_id'],
       appId = json['app_id'],
       firewallGroupId = json['firewall_group_id'],
-      features = json['features'];
+      features = new List<String>.from(json['features']);
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -133,7 +133,7 @@ class CreateInstanceModel {
       scriptId = json['script_id'],
       snapshotId = json['snapshot_id'],
       enableIpv6 = json['enable_ipv6'],
-      attachPrivateNetwork = json['attach_private_network'],
+      attachPrivateNetwork = new List<String>.from(json['attach_private_network']),
       label = json['label'],
       sshkeyId = json['sshkey_id'],
       backups = json['backups'],
@@ -196,8 +196,8 @@ class UpdateInstanceModel {
       tag = json['tag'],
       plan = json['plan'],
       ddosProtection = json['ddos_protection'],
-      attachPrivateNetwork = json['attach_private_network'],
-      detachPrivateNetwork = json['detach_private_network'],
+      attachPrivateNetwork = new List<String>.from(json['attach_private_network']),
+      detachPrivateNetwork = new List<String>.from(json['detach_private_network']),
       enablePrivateNetwork = json['enable_private_network'];
 
   Map<String, dynamic> toJson() => {
@@ -221,8 +221,8 @@ class PrivateNetworksInstanceModel {
   MetaModel meta;
 
   PrivateNetworksInstanceModel.fromJson(Map<String, dynamic> json)
-    : privateNetworks = (json['private_networks'] as List).map((e) => PrivateNetworkInstanceModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['private_networks']);
+    : privateNetworks = (json['private_networks'] as List).map((e) => PrivateNetworkInstanceModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "private_networks": privateNetworks,
@@ -329,8 +329,8 @@ class IPv4sInstanceModel {
   MetaModel meta;
 
   IPv4sInstanceModel.fromJson(Map<String, dynamic> json)
-    : ipv4s = (json['ipv4s'] as List).map((e) => IPv4InstanceModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['ipv4s']);
+    : ipv4s = (json['ipv4s'] as List).map((e) => IPv4InstanceModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "ipv4s": ipv4s,
@@ -343,8 +343,8 @@ class IPv6sInstanceModel {
   MetaModel meta;
 
   IPv6sInstanceModel.fromJson(Map<String, dynamic> json)
-    : ipv46 = (json['ipv46'] as List).map((e) => IPv6InstanceModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['ipv46']);
+    : ipv46 = (json['ipv46'] as List).map((e) => IPv6InstanceModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "ipv46": ipv46,

@@ -6,8 +6,8 @@ class DomainsModel {
   MetaModel meta;
 
   DomainsModel.fromJson(Map<String, dynamic> json)
-    : domains = (json['domains'] as List).map((e) => DomainModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['domains']);
+    : domains = (json['domains'] as List).map((e) => DomainModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "domains": domains,
@@ -78,7 +78,7 @@ class DomainSecsModel {
   List<String> dnsSec;
 
   DomainSecsModel.fromJson(Map<String, dynamic> json)
-    : dnsSec = json['dns_sec'];
+    : dnsSec = new List<String>.from(json['dns_sec']);
 
   Map<String, dynamic> toJson() => {
     "dns_sec": dnsSec
@@ -139,8 +139,8 @@ class DomainRecordsModel {
   MetaModel meta;
 
   DomainRecordsModel.fromJson(Map<String, dynamic> json)
-    : records = (json['records'] as List).map((e) => DomainRecordModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['records']);
+    : records = (json['records'] as List).map((e) => DomainRecordModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "records": records,

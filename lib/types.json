@@ -251,7 +251,7 @@
             "id": "String",
             "os": "String",
             "ram": "int",
-            "disk": "String",
+            "disk": "int",
             "main_ip": "String",
             "vcpu_count": "int",
             "region": "String",

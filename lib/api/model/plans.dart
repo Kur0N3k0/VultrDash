@@ -6,8 +6,8 @@ class PlansModel {
   MetaModel meta;
 
   PlansModel.fromJson(Map<String, dynamic> json)
-    : plans = (json['plans'] as List).map((e) => PlanModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['plans']);
+    : plans = (json['plans'] as List).map((e) => PlanModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "plans": plans,
@@ -33,7 +33,7 @@ class PlanModel {
       bandwidth = json['bandwidth'],
       monthlyCost = json['monthly_cost'],
       type = json['type'],
-      locations = json['locations'];
+      locations = new List<String>.from(json['locations']);
 
   Map<String, dynamic> toJson() => {
     "id": id,

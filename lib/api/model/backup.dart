@@ -6,8 +6,8 @@ class BackupsModel {
   MetaModel meta;
 
   BackupsModel.fromJson(Map<String, dynamic> json)
-    : backups = (json['backups'] as List).map((e) => BackupModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['backups']);
+    : backups = (json['backups'] as List).map((e) => BackupModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "backups": backups,

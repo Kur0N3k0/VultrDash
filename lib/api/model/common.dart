@@ -7,7 +7,7 @@ class MetaModel {
 
   MetaModel.fromJson(Map<String, dynamic> json)
     : total = json['total'],
-      links = json['links'];
+      links = Map<String, String>.from(json['links']);
 
   Map<String, dynamic> toJson() => {
     "total": total,

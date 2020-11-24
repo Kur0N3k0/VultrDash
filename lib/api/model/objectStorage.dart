@@ -6,8 +6,8 @@ class ObjectStoragesModel {
   MetaModel meta;
 
   ObjectStoragesModel.fromJson(Map<String, dynamic> json)
-    : objectStorages = (json['object_storages'] as List).map((e) => ObjectStorageModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['object_storages']);
+    : objectStorages = (json['object_storages'] as List).map((e) => ObjectStorageModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "object_storages": objectStorages,
@@ -86,8 +86,8 @@ class ObjectStorageClustersModel {
   MetaModel meta;
 
   ObjectStorageClustersModel.fromJson(Map<String, dynamic> json)
-    : clusters = (json['clusters'] as List).map((e) => ObjectStorageClusterModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['clusters']);
+    : clusters = (json['clusters'] as List).map((e) => ObjectStorageClusterModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "clusters": clusters,

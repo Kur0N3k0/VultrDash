@@ -24,15 +24,19 @@ for name in data:
             
             code += f"  {clsname}.fromJson(Map<String, dynamic> json)" + "\n"
             c = False
-            if "String" == items[0][1] or "bool" == items[0][1] or "int" == items[0][1] or "List<String>" == items[0][1] or "Uint32" == items[0][1]:
+            if "String" == items[0][1] or "bool" == items[0][1] or "int" == items[0][1] or "Uint32" == items[0][1]:
                 code += f"    : {capitalize(items[0][0])} = json['{items[0][0]}']," + "\n"
+            elif "List<String>" == items[0][1]:
+                code += f"    : {capitalize(items[0][0])} = new List<String>.from(json['{items[0][0]}'])," + "\n"
             else:
                 tcls = items[0][1].split("<")
                 typ = tcls[0]
                 if typ == "List":
-                    code += f"    : {capitalize(items[0][0])} = (json['{items[0][0]}'] as List).map((e) => {tcls[1][:-1]}.fromJson(e))," + "\n"
+                    code += f"    : {capitalize(items[0][0])} = (json['{items[0][0]}'] as List).map((e) => {tcls[1][:-1]}.fromJson(e)).toList()," + "\n"
                 elif typ == "Map":
-                    code += f"    : {capitalize(items[0][0])} = json['{items[0][0]}']," + "\n"
+                    code += f"    : {capitalize(items[0][0])} = Map<{tcls[1][:-1]}>.from(json['{items[0][0]}'])," + "\n"
+                elif typ == "MetaModel":
+                    code += f"    : {capitalize(items[0][0])} = {typ}.fromJson(json['{items[0][0]}'])," + "\n"
                 else:
                     code += f"    : {capitalize(items[0][0])} = {typ}.fromJson(json['{items[0][0]}'])," + "\n"
             for varitem in items[1:]:
@@ -40,15 +44,19 @@ for name in data:
                     continue
                 tcls = varitem[1].split("<")
                 typ = tcls[0]
-                if "String" == varitem[1] or "bool" == varitem[1] or "int" == varitem[1] or "List<String>" == varitem[1] or "Uint32" == varitem[1]:
+                if "String" == varitem[1] or "bool" == varitem[1] or "int" == varitem[1] or "Uint32" == varitem[1]:
                     code += f"      {capitalize(varitem[0])} = json['{varitem[0]}']," + "\n"
+                elif "List<String>" == varitem[1]:
+                    code += f"      {capitalize(varitem[0])} = new List<String>.from(json['{varitem[0]}'])," + "\n"
                 else:
                     if typ == "List":
-                        code += f"      {capitalize(varitem[0])} = (json['{varitem[0]}'] as List).map((e) => {tcls[1][:-1]}.fromJson(e))," + "\n"
+                        code += f"      {capitalize(varitem[0])} = (json['{varitem[0]}'] as List).map((e) => {tcls[1][:-1]}.fromJson(e)).toList()," + "\n"
                     elif typ == "Map":
-                        code += f"      {capitalize(varitem[0])} = json['{varitem[0]}']," + "\n"
+                        code += f"      {capitalize(varitem[0])} = Map<{tcls[1][:-1]}>.from(json['{varitem[0]}'])," + "\n"
+                    elif typ == "MetaModel":
+                        code += f"      {capitalize(varitem[0])} = {typ}.fromJson(json['{varitem[0]}'])," + "\n"
                     else:
-                        code += f"      {capitalize(varitem[0])} = {typ}.fromJson(json['{items[0][0]}'])," + "\n"
+                        code += f"      {capitalize(varitem[0])} = {typ}.fromJson(json['{varitem[0]}'])," + "\n"
             code = code[:-2] + ";\n\n"
             
             code += "  Map<String, dynamic> toJson() => {\n"

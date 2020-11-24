@@ -6,8 +6,8 @@ class StartupScriptsModel {
   MetaModel meta;
 
   StartupScriptsModel.fromJson(Map<String, dynamic> json)
-    : startupScripts = (json['startup_scripts'] as List).map((e) => StartupScriptModel.fromJson(e)),
-      meta = MetaModel.fromJson(json['startup_scripts']);
+    : startupScripts = (json['startup_scripts'] as List).map((e) => StartupScriptModel.fromJson(e)).toList(),
+      meta = MetaModel.fromJson(json['meta']);
 
   Map<String, dynamic> toJson() => {
     "startup_scripts": startupScripts,
