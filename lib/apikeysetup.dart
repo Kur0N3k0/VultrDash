@@ -40,9 +40,6 @@ class _APIKeySetupState extends State<APIKeySetup> {
               ),
               color: Color.fromRGBO(0x1f, 0x20, 0x23, 1.0),
               onPressed: () {
-                LocalStorage("config")
-                    .setItem("credential", apikeyController.text);
-
                 Account account = new Account();
                 account.getInfo().then(
                     (value) => {
