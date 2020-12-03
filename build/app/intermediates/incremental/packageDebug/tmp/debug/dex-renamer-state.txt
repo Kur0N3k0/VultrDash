@@ -1,0 +1,4 @@
+#Fri Dec 04 01:14:51 KST 2020
+base.0=D\:\\dev\\VultrDash\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

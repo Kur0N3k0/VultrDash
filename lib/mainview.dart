@@ -64,13 +64,17 @@ class _MainViewAppState extends State<MainViewApp> {
                           DataCell(Container(
                             child: Text(
                                 regionMap[value.instances[index].region],
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                             alignment: Alignment.center,
                           )),
                           DataCell(
                             Container(
                                 child: Text(value.instances[index].powerStatus,
-                                    style: TextStyle(color: Colors.white)),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
                                 constraints: BoxConstraints(
                                     maxWidth:
                                         MediaQuery.of(context).size.width / 7)),
@@ -136,7 +140,8 @@ class _MainViewAppState extends State<MainViewApp> {
                                     child: Text('Server',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
-                                                0xff, 0xff, 0xff, 0.4))),
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold)),
                                     alignment: Alignment.center,
                                   )),
                                   DataColumn(
@@ -144,7 +149,8 @@ class _MainViewAppState extends State<MainViewApp> {
                                     child: Text('OS',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
-                                                0xff, 0xff, 0xff, 0.4))),
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold)),
                                     alignment: Alignment.center,
                                   )),
                                   DataColumn(
@@ -152,7 +158,8 @@ class _MainViewAppState extends State<MainViewApp> {
                                     child: Text('Region',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
-                                                0xff, 0xff, 0xff, 0.4))),
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold)),
                                     alignment: Alignment.center,
                                   )),
                                   DataColumn(
@@ -160,7 +167,8 @@ class _MainViewAppState extends State<MainViewApp> {
                                     child: Text('Status',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
-                                                0xff, 0xff, 0xff, 0.4))),
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold)),
                                     alignment: Alignment.center,
                                   )),
                                 ],

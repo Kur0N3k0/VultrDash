@@ -32,6 +32,8 @@ class _InstanceDetailMenuState extends State<InstanceDetailMenu> {
               unselectedItemColor: Colors.white.withOpacity(.60),
               selectedFontSize: 14,
               unselectedFontSize: 14,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
               onTap: (value) {
                 // Respond to item press.
               },
@@ -55,10 +57,6 @@ class _InstanceDetailMenuState extends State<InstanceDetailMenu> {
               ],
             ),
             body: Container(
-                // constraints: BoxConstraints.expand(
-                //   height: 100.0,
-                // ),
-                padding: EdgeInsets.only(left: 0.0, bottom: 8.0, right: 16.0),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -76,42 +74,375 @@ class _InstanceDetailMenuState extends State<InstanceDetailMenu> {
                 ),
                 child: Container(
                     child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                              padding:
-                                  EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 0.0),
-                              child: Text(
-                                "KuroNeko",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
+                    Row(children: [
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        16.0, 16.0, 0.0, 0.0),
+                                    child: Text(
+                                      widget.instance.label,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        16.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      widget.instance.os,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                              ],
+                            ),
+                          )),
+                      Expanded(
+                          flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Ink(
+                                decoration: ShapeDecoration(
+                                  color: Colors.lightBlue,
+                                  shape: CircleBorder(),
                                 ),
-                              )),
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                widget.instance.os,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ]),
-                    Center(
-                      child: Text(
-                        'Hello Gradient!',
-                        style: TextStyle(
-                            fontSize: 48.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
+                                child: IconButton(
+                                    tooltip: "test",
+                                    icon: Icon(
+                                      Icons.power_settings_new,
+                                      color:
+                                          Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
+                                      size: 30,
+                                    ),
+                                    onPressed: () {
+                                      print("zzzz");
+                                    }),
+                              ),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.autorenew,
+                                    color:
+                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
+                                    size: 30,
+                                  ),
+                                  onPressed: null),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.disc_full,
+                                    color:
+                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
+                                    size: 30,
+                                  ),
+                                  onPressed: null),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color:
+                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
+                                    size: 30,
+                                  ),
+                                  onPressed: null),
+                            ],
+                          ))
+                    ]),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: Container(
+                          height: 1.0,
+                          color: Colors.white,
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "Location :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Row(children: [
+                                          Image.asset(
+                                              "./assets/img/flagsm_jp.webp"),
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                            child: Text(
+                                              "Tokyo",
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      0x8a, 0x90, 0x99, 1.0),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15.0),
+                                            ),
+                                          )
+                                        ])))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "IP Address :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(widget.instance.mainIp,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "vCPU :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            widget.instance.vcpuCount
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "RAM :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            widget.instance.ram.toString() +
+                                                " MB",
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "Storage :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            widget.instance.disk.toString() +
+                                                " GB",
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "Label :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(widget.instance.label,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "Tag :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(widget.instance.tag,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "OS :  ",
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ))),
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                    height: 40,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(widget.instance.os,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0x8a, 0x90, 0x99, 1.0),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0))))),
+                          ],
+                        ))
                   ],
                 )))));
   }

@@ -67,6 +67,7 @@ class _IntroViewAppState extends State<IntroViewApp> {
                     Center(
                       child: Text("VPS Dashboard",
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
                             color: Colors.white,
                           )),
