@@ -82,3 +82,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/font/Raleway/Raleway-VariableFont_wght.ttf
+        - asset: assets/font/Raleway/Raleway-Italic-VariableFont_wght.ttf
+          weight: 700

@@ -1,4 +1,5 @@
 import 'package:VultrDash/apikeysetup.dart';
+import 'package:VultrDash/mainview.dart';
 import 'package:VultrDash/menu/blockstorage.dart';
 import 'package:VultrDash/menu/dns.dart';
 import 'package:VultrDash/menu/firewall.dart';
@@ -22,7 +23,10 @@ class NavDrawer extends StatelessWidget {
           DrawerHeader(
             child: Text(
               'Manage',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
             ),
             decoration: BoxDecoration(
               color: Color.fromRGBO(0x31, 0x32, 0x35, 1.0),
@@ -30,7 +34,10 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
+            title: Text(
+              'Profile',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ProfileMenu()))
@@ -38,15 +45,17 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.layers),
-            title: Text('Instances'),
+            title: Text('Instances',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => InstanceMenu()))
+                  MaterialPageRoute(builder: (context) => MainViewApp()))
             },
           ),
           ListTile(
             leading: Icon(Icons.archive),
-            title: Text('Snapshots'),
+            title: Text('Snapshots',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SnapshotMenu()))
@@ -54,7 +63,7 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.file_upload),
-            title: Text('ISOs'),
+            title: Text('ISOs', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => ISOMenu()))
@@ -62,7 +71,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.note_add),
-            title: Text('Scripts'),
+            title:
+                Text('Scripts', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ScriptMenu()))
@@ -70,7 +80,7 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.dns),
-            title: Text('DNS'),
+            title: Text('DNS', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => DNSMenu()))
@@ -78,7 +88,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.storage),
-            title: Text('BlockStorage'),
+            title: Text('BlockStorage',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => BlockStorageMenu()))
@@ -86,7 +97,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.backup),
-            title: Text('Objects'),
+            title:
+                Text('Objects', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => ObjectMenu()))
@@ -94,7 +106,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.fireplace),
-            title: Text('Firewall'),
+            title:
+                Text('Firewall', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => FirewallMenu()))
@@ -102,7 +115,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.network_check),
-            title: Text('Network'),
+            title:
+                Text('Network', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => NetworkMenu()))
@@ -110,7 +124,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.alt_route),
-            title: Text('LoadBalancer'),
+            title: Text('LoadBalancer',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => LoadBalancerMenu()))
@@ -118,7 +133,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            title:
+                Text('Settings', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => APIKeySetup()))
@@ -126,7 +142,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
+            title:
+                Text('Feedback', style: TextStyle(fontWeight: FontWeight.bold)),
             onTap: () => {Navigator.of(context).pop()},
           ),
         ],

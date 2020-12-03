@@ -1,9 +1,9 @@
 import 'package:VultrDash/api/instance.dart';
 import 'package:VultrDash/api/model/instance.dart';
+import 'package:VultrDash/menu/instance.dart';
 import 'package:VultrDash/navdrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tuple/tuple.dart';
 
 class MainViewApp extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _MainViewAppState extends State<MainViewApp> {
   final SvgPicture icon = SvgPicture.asset("./assets/img/icon-ubuntu.svg");
   final Image search = Image.asset("./assets/img/search.png");
   final Image flag = Image.asset("./assets/img/flagsm_jp.webp");
-  final List<Tuple2<InstanceModel, DataRow>> instances = [];
+  final List<InstanceModel> instances = [];
   final List<DataRow> serverList = [];
   final Map<String, String> regionMap = {
     "ams": "Amsterdam",
@@ -41,43 +41,61 @@ class _MainViewAppState extends State<MainViewApp> {
     if (instances.isEmpty) {
       Instance inst = new Instance();
       inst.getInfo().then((value) => {
-            value.instances.forEach((element) {
-              instances.add(new Tuple2(
-                  element,
-                  DataRow(cells: [
-                    DataCell(Container(
-                        child: Text(element.label,
-                            style: TextStyle(color: Colors.white)),
-                        width: MediaQuery.of(context).size.width / 7)),
-                    DataCell(Container(
-                      child: icon,
-                      width: 20,
-                      alignment: Alignment.center,
-                    )),
-                    DataCell(Container(
-                      child: Text(regionMap[element.region],
-                          style: TextStyle(color: Colors.white)),
-                      alignment: Alignment.center,
-                    )),
-                    DataCell(Container(
-                        child: Text(element.powerStatus,
-                            style: TextStyle(color: Colors.white)),
-                        width: MediaQuery.of(context).size.width / 7)),
-                  ])));
-              instances.forEach((element) {
-                serverList.add(element.item2);
-              });
-
-              setState(() {});
-            })
+            serverList.addAll(List<DataRow>.generate(
+                value.instances.length,
+                (index) => DataRow(
+                        cells: [
+                          DataCell(
+                            Container(
+                              child: Text(value.instances[index].label,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width / 7),
+                            ),
+                          ),
+                          DataCell(Container(
+                            child: icon,
+                            alignment: Alignment.center,
+                            constraints: BoxConstraints(maxWidth: 20),
+                          )),
+                          DataCell(Container(
+                            child: Text(
+                                regionMap[value.instances[index].region],
+                                style: TextStyle(color: Colors.white)),
+                            alignment: Alignment.center,
+                          )),
+                          DataCell(
+                            Container(
+                                child: Text(value.instances[index].powerStatus,
+                                    style: TextStyle(color: Colors.white)),
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width / 7)),
+                          ),
+                        ],
+                        onSelectChanged: (selected) {
+                          if (selected) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InstanceDetailMenu(
+                                        instance: instances[index])));
+                          }
+                        }))),
+            instances.addAll(value.instances),
+            setState(() {})
           });
     }
 
     var result = Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
-          title:
-              Text("VultrDash", style: TextStyle(fontStyle: FontStyle.italic)),
+          title: Text("VultrDash",
+              style: TextStyle(
+                  fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
           backgroundColor: Color.fromRGBO(0x1f, 0x20, 0x23, 1.0),
         ),
         backgroundColor: Color.fromRGBO(0x31, 0x32, 0x35, 1.0),
@@ -111,6 +129,7 @@ class _MainViewAppState extends State<MainViewApp> {
                               constraints: BoxConstraints(
                                   minWidth: constraints.maxWidth),
                               child: DataTable(
+                                showCheckboxColumn: false,
                                 columns: [
                                   DataColumn(
                                       label: Container(
@@ -151,6 +170,10 @@ class _MainViewAppState extends State<MainViewApp> {
                   ],
                 ))));
 
-    return result;
+    return MaterialApp(
+        theme: ThemeData(
+          fontFamily: "Raleway",
+        ),
+        home: result);
   }
 }

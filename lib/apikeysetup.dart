@@ -4,7 +4,6 @@ import 'package:VultrDash/mainview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:localstorage/localstorage.dart';
 
 class APIKeySetup extends StatefulWidget {
   @override
@@ -24,37 +23,43 @@ class _APIKeySetupState extends State<APIKeySetup> {
           backgroundColor: Color.fromRGBO(0x1f, 0x20, 0x23, 1.0),
         ),
         backgroundColor: Color.fromRGBO(0x31, 0x32, 0x35, 1.0),
-        body: Column(
-          children: [
-            TextField(
-              controller: apikeyController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                  labelText: 'API Key',
-                  labelStyle: TextStyle(color: Colors.white)),
-            ),
-            RaisedButton(
-              child: Text(
-                'Setup',
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: apikeyController,
                 style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                    labelText: 'API Key',
+                    labelStyle: TextStyle(color: Colors.white)),
               ),
-              color: Color.fromRGBO(0x1f, 0x20, 0x23, 1.0),
-              onPressed: () {
-                Account account = new Account();
-                account.getInfo().then(
-                    (value) => {
-                          API.credential = apikeyController.text,
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainViewApp()))
-                        }, onError: (e) {
-                  Fluttertoast.showToast(
-                      msg: "Invalid API key", timeInSecForIosWeb: 1);
-                });
-              },
-            ),
-          ],
+              SizedBox(height: 10),
+              RaisedButton(
+                child: Text(
+                  'Setup',
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Color.fromRGBO(0x1f, 0x20, 0x23, 1.0),
+                onPressed: () {
+                  Account account = new Account();
+                  String orgCred = API.credential;
+                  API.credential = apikeyController.text;
+                  account.getInfo().then(
+                      (value) => {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainViewApp()))
+                          }, onError: (e) {
+                    API.credential = orgCred;
+                    Fluttertoast.showToast(
+                        msg: "Invalid API key", timeInSecForIosWeb: 1);
+                  });
+                },
+              ),
+            ],
+          ),
         ));
   }
 }

@@ -38,38 +38,40 @@ class _IntroViewAppState extends State<IntroViewApp> {
   Widget build(BuildContext context) {
     this._setMoveTimer(context);
 
-    return Scaffold(
-        body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0x1e, 0x28, 0xa3, 1.0),
-                    Color.fromRGBO(0x02, 0x20, 0x48, 1.0),
-                  ]),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Text(
-                    "VultrDash",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.white,
-                        fontSize: 30.0),
-                  ),
+    return MaterialApp(
+        theme: ThemeData(fontFamily: "Raleway"),
+        home: Scaffold(
+            body: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(0x1e, 0x28, 0xa3, 1.0),
+                        Color.fromRGBO(0x02, 0x20, 0x48, 1.0),
+                      ]),
                 ),
-                Center(
-                  child: Text("VPS Dashboard",
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Colors.white,
-                      )),
-                )
-              ],
-            )));
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        "VultrDash",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.white,
+                            fontSize: 30.0),
+                      ),
+                    ),
+                    Center(
+                      child: Text("VPS Dashboard",
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.white,
+                          )),
+                    )
+                  ],
+                ))));
   }
 }
