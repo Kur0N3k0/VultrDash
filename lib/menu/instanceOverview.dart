@@ -36,6 +36,30 @@ class InstanceOverviewMenu extends StatelessWidget {
         });
   }
 
+  Widget getOverviewInfoWidget(String key, Widget value) {
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Container(
+                    height: 40,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        key,
+                        style: TextStyle(
+                            color: Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0),
+                      ),
+                    ))),
+            Expanded(flex: 2, child: Container(height: 40, child: value)),
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -112,11 +136,14 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     ),
                                     onPressed: () {
                                       print("start");
-                                      // Instance()
-                                      //     .startInstance(instance.id)
-                                      //     .catchError((e) {
-                                      //   print(e);
-                                      // });
+                                      Instance()
+                                          .startInstance(instance.id)
+                                          .whenComplete(() => {
+                                                // TODO: toast message & update server status
+                                              })
+                                          .catchError((e) {
+                                        print(e);
+                                      });
                                     }),
                               ),
                               IconButton(
@@ -136,6 +163,7 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     _showDialog(context, "Alert",
                                         "Really reboot instance?", () {
                                       print("success");
+                                      // TODO: toast message & update server status
                                     }, () {
                                       print("fail");
                                     });
@@ -152,6 +180,7 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     _showDialog(context, "Alert",
                                         "Really reinstall instance?", () {
                                       print("success");
+                                      // TODO: toast message & update server status
                                     }, () {
                                       print("fail");
                                     });
@@ -168,6 +197,7 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     _showDialog(context, "Alert",
                                         "Really delete instance?", () {
                                       print("success");
+                                      // TODO: toast message & update server status
                                     }, () {
                                       print("fail");
                                     });
@@ -182,343 +212,124 @@ class InstanceOverviewMenu extends StatelessWidget {
                           height: 1.0,
                           color: Colors.white,
                         )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Location :  ",
+                    getOverviewInfoWidget(
+                        "Location :  ",
+                        Row(children: [
+                          Image.asset("./assets/img/flagsm_jp.webp"),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            child: Text(
+                              "Tokyo",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0),
+                            ),
+                          )
+                        ])),
+                    getOverviewInfoWidget(
+                        "IP Address :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.mainIp,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "vCPU :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.vcpuCount.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "RAM :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.ram.toString() + " MB",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "Storage :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.disk.toString() + " GB",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "Label :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.label,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "Tag :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.tag,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "OS :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.os,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
+                    getOverviewInfoWidget(
+                        "KVM :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: InkWell(
+                                    onTap: () => launch(instance.kvm),
+                                    child: Text("Link",
                                         style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(children: [
-                                          Image.asset(
-                                              "./assets/img/flagsm_jp.webp"),
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                            child: Text(
-                                              "Tokyo",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.0),
-                                            ),
-                                          )
-                                        ])))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "IP Address :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(instance.mainIp,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "vCPU :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            instance.vcpuCount.toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "RAM :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            instance.ram.toString() + " MB",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Storage :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            instance.disk.toString() + " GB",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Label :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(instance.label,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Tag :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(instance.tag,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "OS :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(instance.os,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "KVM :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: InkWell(
-                                            onTap: () => launch(instance.kvm),
-                                            child: Text("Link",
-                                                style: TextStyle(
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15.0)))))),
-                          ],
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Status :  ",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                0x8a, 0x90, 0x99, 1.0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.0),
-                                      ),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    height: 40,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(instance.status,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0))))),
-                          ],
-                        )),
+                                            fontSize: 15.0)))))),
+                    getOverviewInfoWidget(
+                        "Status :  ",
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(instance.status,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
                   ],
                 ))));
   }
