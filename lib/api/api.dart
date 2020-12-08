@@ -25,7 +25,8 @@ class API {
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
-    return convert.json.decode(resp.body);
+    if (resp.body.length != 0) return convert.json.decode(resp.body);
+    return {};
   }
 
   Future<Map<String, dynamic>> Post(
@@ -44,7 +45,8 @@ class API {
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
-    return convert.json.decode(resp.body);
+    if (resp.body.length != 0) return convert.json.decode(resp.body);
+    return {};
   }
 
   Future<Map<String, dynamic>> Put(
@@ -63,7 +65,8 @@ class API {
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
-    return convert.json.decode(resp.body);
+    if (resp.body.length != 0) return convert.json.decode(resp.body);
+    return {};
   }
 
   Future<Map<String, dynamic>> Patch(
@@ -82,7 +85,8 @@ class API {
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
-    return convert.json.decode(resp.body);
+    if (resp.body.length != 0) return convert.json.decode(resp.body);
+    return {};
   }
 
   Future<Map<String, dynamic>> Delete(
@@ -102,6 +106,7 @@ class API {
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
-    return convert.json.decode(resp.body);
+    if (resp.body.length != 0) return convert.json.decode(resp.body);
+    return {};
   }
 }

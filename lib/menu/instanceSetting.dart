@@ -43,10 +43,10 @@ class InstanceSettingMenu extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(
                                         16.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      instance.label,
+                                      "Settings",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 30.0,
+                                        fontSize: 26.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )),
@@ -54,7 +54,7 @@ class InstanceSettingMenu extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      instance.os,
+                                      instance.label,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15.0,

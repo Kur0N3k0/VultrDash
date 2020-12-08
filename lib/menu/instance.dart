@@ -17,7 +17,7 @@ class InstanceDetailMenu extends StatefulWidget {
 
 class _InstanceDetailMenuState extends State<InstanceDetailMenu> {
   List<Widget> pages;
-  int pageIdx = 1;
+  int pageIdx = 0;
 
   @override
   void initState() {

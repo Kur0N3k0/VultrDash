@@ -1,3 +1,4 @@
+import 'package:VultrDash/api/instance.dart';
 import 'package:VultrDash/api/model/instance.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,6 +7,34 @@ class InstanceOverviewMenu extends StatelessWidget {
   final InstanceModel instance;
 
   InstanceOverviewMenu({Key key, @required this.instance}) : super(key: key);
+
+  void _showDialog(BuildContext context, String title, String content,
+      successCallback, failCallback) {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: [
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () {
+                  successCallback();
+                  Navigator.pop(ctx);
+                },
+              ),
+              FlatButton(
+                child: Text("No"),
+                onPressed: () {
+                  failCallback();
+                  Navigator.pop(ctx);
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +72,10 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(
                                         16.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      instance.label,
+                                      "Instance",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 30.0,
+                                        fontSize: 26.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )),
@@ -54,7 +83,7 @@ class InstanceOverviewMenu extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      instance.os,
+                                      instance.label,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15.0,
@@ -75,7 +104,6 @@ class InstanceOverviewMenu extends StatelessWidget {
                                   shape: CircleBorder(),
                                 ),
                                 child: IconButton(
-                                    tooltip: "test",
                                     icon: Icon(
                                       Icons.power_settings_new,
                                       color:
@@ -83,7 +111,12 @@ class InstanceOverviewMenu extends StatelessWidget {
                                       size: 30,
                                     ),
                                     onPressed: () {
-                                      print("zzzz");
+                                      print("start");
+                                      // Instance()
+                                      //     .startInstance(instance.id)
+                                      //     .catchError((e) {
+                                      //   print(e);
+                                      // });
                                     }),
                               ),
                               IconButton(
@@ -93,7 +126,20 @@ class InstanceOverviewMenu extends StatelessWidget {
                                         Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
                                     size: 30,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () {
+                                    print("reboot");
+                                    // Instance()
+                                    //     .rebootInstance(instance.id)
+                                    //     .catchError((e) {
+                                    //   print(e);
+                                    // });
+                                    _showDialog(context, "Alert",
+                                        "Really reboot instance?", () {
+                                      print("success");
+                                    }, () {
+                                      print("fail");
+                                    });
+                                  }),
                               IconButton(
                                   icon: Icon(
                                     Icons.disc_full,
@@ -101,7 +147,15 @@ class InstanceOverviewMenu extends StatelessWidget {
                                         Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
                                     size: 30,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () {
+                                    print("reinstall");
+                                    _showDialog(context, "Alert",
+                                        "Really reinstall instance?", () {
+                                      print("success");
+                                    }, () {
+                                      print("fail");
+                                    });
+                                  }),
                               IconButton(
                                   icon: Icon(
                                     Icons.delete,
@@ -109,7 +163,15 @@ class InstanceOverviewMenu extends StatelessWidget {
                                         Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
                                     size: 30,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () {
+                                    print("delete");
+                                    _showDialog(context, "Alert",
+                                        "Really delete instance?", () {
+                                      print("success");
+                                    }, () {
+                                      print("fail");
+                                    });
+                                  }),
                             ],
                           ))
                     ]),
