@@ -25,7 +25,7 @@ class Snapshot extends API {
 
   Future<SnapshotModel> createSnapshot(String instanceId, String description) {
     return this.Post("/snapshots", null, {
-      "instanceId": instanceId,
+      "instance_id": instanceId,
       "description": description
     }).then((value) => SnapshotModel.fromJson(value["snapshot"]));
   }

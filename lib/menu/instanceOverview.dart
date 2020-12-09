@@ -1,5 +1,6 @@
 import 'package:VultrDash/api/instance.dart';
 import 'package:VultrDash/api/model/instance.dart';
+import 'package:VultrDash/api/snapshot.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -155,6 +156,14 @@ class InstanceOverviewMenu extends StatelessWidget {
                                   ),
                                   onPressed: () {
                                     print("reboot");
+                                    // Snapshot()
+                                    //     .createSnapshot(instance.id, "test")
+                                    //     .then(
+                                    //         (value) => {print(value.toJson())});
+                                    Snapshot().getInfo().then((value) =>
+                                        {print(value.snapshots[0].toJson())});
+                                    Instance().getInfo().then((value) =>
+                                        {print(value.instances[0].toJson())});
                                     // Instance()
                                     //     .rebootInstance(instance.id)
                                     //     .catchError((e) {

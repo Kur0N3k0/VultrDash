@@ -41,7 +41,8 @@ class API {
           "Authorization": "Bearer $credential",
           "Content-Type": "application/json"
         },
-        body: body);
+        body: convert.jsonEncode(body));
+
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
@@ -61,7 +62,7 @@ class API {
           "Authorization": "Bearer $credential",
           "Content-Type": "application/json"
         },
-        body: body);
+        body: convert.jsonEncode(body));
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
@@ -81,7 +82,7 @@ class API {
           "Authorization": "Bearer $credential",
           "Content-Type": "application/json"
         },
-        body: body);
+        body: convert.jsonEncode(body));
     if (resp.statusCode >= 400) {
       return Future.error(resp.statusCode);
     }
