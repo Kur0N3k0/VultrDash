@@ -4,10 +4,39 @@ import 'package:VultrDash/api/snapshot.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InstanceOverviewMenu extends StatelessWidget {
+class InstanceOverviewMenu extends StatefulWidget {
   final InstanceModel instance;
 
   InstanceOverviewMenu({Key key, @required this.instance}) : super(key: key);
+
+  @override
+  _InstanceOverviewState createState() =>
+      _InstanceOverviewState(instance: instance);
+}
+
+class _InstanceOverviewState extends State<InstanceOverviewMenu> {
+  InstanceModel instance;
+  final Map<String, String> regionMap = {
+    "ams": "Amsterdam",
+    "atl": "Atlanta",
+    "cdg": "Paris",
+    "dfw": "Dallas",
+    "ewr": "New Jersey",
+    "fra": "Frankfurt",
+    "icn": "Seoul",
+    "lax": "Los Angeles",
+    "lhr": "London",
+    "mia": "Miami",
+    "nrt": "Tokyo",
+    "ord": "Chicago",
+    "sea": "Seattle",
+    "sgp": "Singapore",
+    "sjc": "Silicon Valley",
+    "syd": "Sydney",
+    "yto": "Toronto"
+  };
+
+  _InstanceOverviewState({@required this.instance}) : super();
 
   void _showDialog(BuildContext context, String title, String content,
       successCallback, failCallback) {
@@ -34,6 +63,16 @@ class InstanceOverviewMenu extends StatelessWidget {
               ),
             ],
           );
+        });
+  }
+
+  void updateInstanceStatus() {
+    Instance().getInfo(param: {"label": instance.label}).then((value) => {
+          value.instances.length > 0
+              ? this.setState(() {
+                  instance = value.instances[0];
+                })
+              : value
         });
   }
 
@@ -124,93 +163,171 @@ class InstanceOverviewMenu extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Ink(
-                                decoration: ShapeDecoration(
-                                  color: Colors.lightBlue,
-                                  shape: CircleBorder(),
-                                ),
-                                child: IconButton(
-                                    icon: Icon(
-                                      Icons.power_settings_new,
-                                      color:
-                                          Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
-                                      size: 30,
-                                    ),
-                                    onPressed: () {
-                                      print("start");
-                                      Instance()
-                                          .startInstance(instance.id)
-                                          .whenComplete(() => {
-                                                // TODO: toast message & update server status
-                                              })
-                                          .catchError((e) {
-                                        print(e);
-                                      });
-                                    }),
-                              ),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.autorenew,
-                                    color:
-                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
-                                    size: 30,
+                                  decoration: ShapeDecoration(
+                                    color: Colors.lightBlue,
+                                    shape: CircleBorder(),
                                   ),
-                                  onPressed: () {
-                                    print("reboot");
-                                    // Snapshot()
-                                    //     .createSnapshot(instance.id, "test")
-                                    //     .then(
-                                    //         (value) => {print(value.toJson())});
-                                    Snapshot().getInfo().then((value) =>
-                                        {print(value.snapshots[0].toJson())});
-                                    Instance().getInfo().then((value) =>
-                                        {print(value.instances[0].toJson())});
-                                    // Instance()
-                                    //     .rebootInstance(instance.id)
-                                    //     .catchError((e) {
-                                    //   print(e);
-                                    // });
-                                    _showDialog(context, "Alert",
-                                        "Really reboot instance?", () {
-                                      print("success");
-                                      // TODO: toast message & update server status
-                                    }, () {
-                                      print("fail");
-                                    });
-                                  }),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.disc_full,
-                                    color:
-                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
-                                    size: 30,
+                                  width: 50.0,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        16.0, 16.0, 0.0, 0.0),
+                                    child: FlatButton(
+                                        padding: EdgeInsets.all(0.0),
+                                        child: Column(children: [
+                                          Icon(
+                                            instance.status == "active"
+                                                ? Icons.pause
+                                                : Icons.power_settings_new,
+                                            color: Color.fromRGBO(
+                                                0x8a, 0x90, 0x99, 1.0),
+                                            size: 30,
+                                          ),
+                                          Text(
+                                            instance.status == "active"
+                                                ? "stop"
+                                                : "start",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ]),
+                                        onPressed: () {
+                                          print("start");
+                                          var inst = Instance();
+                                          if (instance.status == "active") {
+                                            inst
+                                                .halt(instance.id)
+                                                .then((value) =>
+                                                    updateInstanceStatus())
+                                                .catchError((e) {
+                                              print(e);
+                                            });
+                                            return;
+                                          }
+                                          inst
+                                              .startInstance(instance.id)
+                                              .then((value) =>
+                                                  updateInstanceStatus())
+                                              .catchError((e) {
+                                            print(e);
+                                          });
+                                        }),
+                                  )),
+                              Ink(
+                                  decoration: ShapeDecoration(
+                                    color: Colors.lightBlue,
+                                    shape: CircleBorder(),
                                   ),
-                                  onPressed: () {
-                                    print("reinstall");
-                                    _showDialog(context, "Alert",
-                                        "Really reinstall instance?", () {
-                                      print("success");
-                                      // TODO: toast message & update server status
-                                    }, () {
-                                      print("fail");
-                                    });
-                                  }),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color:
-                                        Color.fromRGBO(0x8a, 0x90, 0x99, 1.0),
-                                    size: 30,
+                                  width: 50.0,
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          0.0, 16.0, 0.0, 0.0),
+                                      child: FlatButton(
+                                          padding: EdgeInsets.all(0.0),
+                                          child: Column(children: [
+                                            Icon(
+                                              Icons.autorenew,
+                                              color: Color.fromRGBO(
+                                                  0x8a, 0x90, 0x99, 1.0),
+                                              size: 30,
+                                            ),
+                                            Text(
+                                              "reboot",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ]),
+                                          onPressed: () {
+                                            print("reboot");
+                                            _showDialog(context, "Alert",
+                                                "Really reboot instance?", () {
+                                              print("success");
+                                              Instance()
+                                                  .rebootInstance(instance.id)
+                                                  .then((value) =>
+                                                      {updateInstanceStatus()})
+                                                  .catchError((e) {
+                                                print(e);
+                                              });
+                                            }, () {
+                                              print("fail");
+                                            });
+                                          }))),
+                              // Ink(
+                              //     decoration: ShapeDecoration(
+                              //       color: Colors.lightBlue,
+                              //       shape: CircleBorder(),
+                              //     ),
+                              //     width: 50.0,
+                              //     child: FlatButton(
+                              //         padding: EdgeInsets.all(0.0),
+                              //         child: Column(children: [
+                              //           Icon(
+                              //             Icons.disc_full,
+                              //             color: Color.fromRGBO(
+                              //                 0x8a, 0x90, 0x99, 1.0),
+                              //             size: 30,
+                              //           ),
+                              //           Text(
+                              //             "reinstall",
+                              //             style: TextStyle(
+                              //                 color: Colors.white,
+                              //                 fontWeight: FontWeight.bold),
+                              //           )
+                              //         ]),
+                              //         onPressed: () {
+                              //           print("reinstall");
+                              //           _showDialog(context, "Alert",
+                              //               "Really reinstall instance?", () {
+                              //             print("success");
+                              //             Instance()
+                              //                 .reinstallInstance(
+                              //                     instance.id, instance.label)
+                              //                 .then((value) =>
+                              //                     {updateInstanceStatus()});
+                              //           }, () {
+                              //             print("fail");
+                              //           });
+                              //         })),
+                              Ink(
+                                  decoration: ShapeDecoration(
+                                    color: Colors.lightBlue,
+                                    shape: CircleBorder(),
                                   ),
-                                  onPressed: () {
-                                    print("delete");
-                                    _showDialog(context, "Alert",
-                                        "Really delete instance?", () {
-                                      print("success");
-                                      // TODO: toast message & update server status
-                                    }, () {
-                                      print("fail");
-                                    });
-                                  }),
+                                  width: 50.0,
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          0.0, 16.0, 0.0, 0.0),
+                                      child: FlatButton(
+                                          padding: EdgeInsets.all(0.0),
+                                          child: Column(children: [
+                                            Icon(
+                                              Icons.delete,
+                                              color: Color.fromRGBO(
+                                                  0x8a, 0x90, 0x99, 1.0),
+                                              size: 30,
+                                            ),
+                                            Text(
+                                              "delete",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ]),
+                                          onPressed: () {
+                                            print("delete");
+                                            _showDialog(context, "Alert",
+                                                "Really delete instance?", () {
+                                              print("success");
+                                              Instance()
+                                                  .deleteInstance(instance.id)
+                                                  .then((value) =>
+                                                      {Navigator.pop(context)});
+                                            }, () {
+                                              print("fail");
+                                            });
+                                          }))),
                             ],
                           ))
                     ]),
@@ -223,19 +340,15 @@ class InstanceOverviewMenu extends StatelessWidget {
                         )),
                     getOverviewInfoWidget(
                         "Location :  ",
-                        Row(children: [
-                          Image.asset("./assets/img/flagsm_jp.webp"),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            child: Text(
-                              "Tokyo",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0),
-                            ),
-                          )
-                        ])),
+                        Container(
+                            height: 40,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(regionMap[instance.region],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0))))),
                     getOverviewInfoWidget(
                         "IP Address :  ",
                         Container(

@@ -29,8 +29,8 @@ class SnapshotModel {
         description = json['description'],
         size = json['size'],
         status = json['status'],
-        OSID = json['OSID'],
-        APPID = json['APPID'];
+        OSID = json['os_id'],
+        APPID = json['app_id'];
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -38,7 +38,7 @@ class SnapshotModel {
         "description": description,
         "size": size,
         "status": status,
-        "OSID": OSID,
-        "APPID": APPID
+        "os_id": OSID,
+        "app_id": APPID
       };
 }

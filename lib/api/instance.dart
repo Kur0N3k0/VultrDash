@@ -3,9 +3,9 @@ import 'package:VultrDash/api/model/common.dart';
 import 'package:VultrDash/api/model/instance.dart';
 
 class Instance extends API {
-  Future<InstancesModel> getInfo() {
+  Future<InstancesModel> getInfo({Map<String, dynamic> param}) {
     return this
-        .Get("/instances", null)
+        .Get("/instances", param)
         .then((value) => InstancesModel.fromJson(value));
   }
 

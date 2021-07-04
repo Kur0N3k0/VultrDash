@@ -47,6 +47,8 @@ class _APIKeySetupState extends State<APIKeySetup> {
                   API.credential = apikeyController.text;
                   account.getInfo().then(
                       (value) => {
+                            storage.write(
+                                key: "credential", value: API.credential),
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

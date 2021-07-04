@@ -1,26 +1,71 @@
-import 'package:VultrDash/api/backup.dart';
-import 'package:VultrDash/api/instance.dart';
 import 'package:VultrDash/api/model/instance.dart';
+import 'package:VultrDash/api/os.dart';
 import 'package:VultrDash/api/snapshot.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class InstanceSnapshotMenu extends StatelessWidget {
+class InstanceSnapshotMenu extends StatefulWidget {
   final InstanceModel instance;
-  List<Widget> contents;
 
   InstanceSnapshotMenu({Key key, @required this.instance}) : super(key: key);
 
-  void getSnapshots(String instanceId) {
+  @override
+  _InstanceSnapshotState createState() =>
+      _InstanceSnapshotState(instance: instance);
+}
+
+class _InstanceSnapshotState extends State<InstanceSnapshotMenu> {
+  InstanceModel instance;
+  List<DataRow> contents = [];
+  Map<int, String> osMap = {};
+
+  _InstanceSnapshotState({@required this.instance}) : super() {
+    getOS().then((value) => getSnapshots()).catchError((e) => {print(e)});
+  }
+
+  Future getOS() {
+    return OS().getInfo().then((value) => {
+          for (var os in value.os) {osMap[os.id] = os.name}
+        });
+  }
+
+  void getSnapshots() {
+    print(osMap);
+    contents.clear();
     Snapshot()
-        .createSnapshot(instanceId, "test")
-        .then((value) => {print(value.toJson())});
+        .getInfo()
+        .then((value) async => {
+              for (var i = 0; i < value.snapshots.length; i++)
+                {
+                  await Snapshot()
+                      .getSnapshot(value.snapshots[i].id)
+                      .then((snapshot) => {
+                            print(snapshot.OSID),
+                            contents.add(DataRow(cells: [
+                              DataCell(Text(snapshot.description,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                              DataCell(Text(osMap[snapshot.OSID],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                              DataCell(Text(snapshot.dateCreated,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                              DataCell(Text(snapshot.status,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold))),
+                            ]))
+                          })
+                }
+            })
+        .then((value) => this.setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
-    //getSnapshots(instance.id);
-
     return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -56,7 +101,7 @@ class InstanceSnapshotMenu extends StatelessWidget {
                                         padding: EdgeInsets.fromLTRB(
                                             16.0, 16.0, 0.0, 0.0),
                                         child: Text(
-                                          "Snapshots",
+                                          "Snapshot",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 26.0,
@@ -81,49 +126,7 @@ class InstanceSnapshotMenu extends StatelessWidget {
                               flex: 2,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Ink(
-                                    decoration: ShapeDecoration(
-                                      color: Colors.lightBlue,
-                                      shape: CircleBorder(),
-                                    ),
-                                    child: IconButton(
-                                        tooltip: "test",
-                                        icon: Icon(
-                                          Icons.power_settings_new,
-                                          color: Color.fromRGBO(
-                                              0x8a, 0x90, 0x99, 1.0),
-                                          size: 30,
-                                        ),
-                                        onPressed: () {
-                                          print("zzzz");
-                                        }),
-                                  ),
-                                  IconButton(
-                                      icon: Icon(
-                                        Icons.autorenew,
-                                        color: Color.fromRGBO(
-                                            0x8a, 0x90, 0x99, 1.0),
-                                        size: 30,
-                                      ),
-                                      onPressed: null),
-                                  IconButton(
-                                      icon: Icon(
-                                        Icons.disc_full,
-                                        color: Color.fromRGBO(
-                                            0x8a, 0x90, 0x99, 1.0),
-                                        size: 30,
-                                      ),
-                                      onPressed: null),
-                                  IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Color.fromRGBO(
-                                            0x8a, 0x90, 0x99, 1.0),
-                                        size: 30,
-                                      ),
-                                      onPressed: null),
-                                ],
+                                children: [],
                               ))
                         ]),
                         Padding(
@@ -187,54 +190,61 @@ class InstanceSnapshotMenu extends StatelessWidget {
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 0.0),
                             child: Container(
-                                alignment: Alignment.center,
                                 // decoration: BoxDecoration(
                                 //     border: Border.all(color: Colors.white)),
                                 child: ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                      minWidth: constraints.minWidth),
-                                  child: DataTable(
-                                      showCheckboxColumn: false,
-                                      columns: [
-                                        DataColumn(
-                                            label: Container(
-                                          child: Text('Name',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      0xff, 0xff, 0xff, 0.4),
-                                                  fontWeight: FontWeight.bold)),
-                                          alignment: Alignment.center,
-                                        )),
-                                        DataColumn(
-                                            label: Container(
-                                          child: Text('OS',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      0xff, 0xff, 0xff, 0.4),
-                                                  fontWeight: FontWeight.bold)),
-                                          alignment: Alignment.center,
-                                        )),
-                                        DataColumn(
-                                            label: Container(
-                                          child: Text('Date',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      0xff, 0xff, 0xff, 0.4),
-                                                  fontWeight: FontWeight.bold)),
-                                          alignment: Alignment.center,
-                                        )),
-                                        DataColumn(
-                                            label: Container(
-                                          child: Text('Status',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      0xff, 0xff, 0xff, 0.4),
-                                                  fontWeight: FontWeight.bold)),
-                                          alignment: Alignment.center,
-                                        )),
-                                      ],
-                                      rows: []),
-                                )))
+                              constraints: BoxConstraints(
+                                  minWidth: constraints.maxWidth),
+                              child: DataTable(
+                                  showCheckboxColumn: false,
+                                  columns: [
+                                    DataColumn(
+                                        label: Expanded(
+                                      child: Text(
+                                        'Name',
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                                    DataColumn(
+                                        label: Expanded(
+                                      child: Text(
+                                        'OS',
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                                    DataColumn(
+                                        label: Expanded(
+                                      child: Text(
+                                        'Date',
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                                    DataColumn(
+                                        label: Expanded(
+                                      child: Text(
+                                        'Status',
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                0xff, 0xff, 0xff, 0.4),
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                                  ],
+                                  rows: contents),
+                            )))
                       ],
                     )))));
   }
